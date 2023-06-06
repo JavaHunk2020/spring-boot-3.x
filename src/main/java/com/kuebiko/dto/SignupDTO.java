@@ -1,4 +1,4 @@
-package com.kuebiko;
+package com.kuebiko.dto;
 
 public class SignupDTO {
 	

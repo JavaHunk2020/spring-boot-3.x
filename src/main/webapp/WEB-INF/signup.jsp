@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.kuebiko.SignupDTO"%>
-<%@page import="java.util.List"%>
 <html>
 <head>
  <meta charset="utf-8">
@@ -52,58 +49,6 @@
    	 </div>
    	 </form>
    	 <hr/>
-   	 
-   	  <hr/>
-   	 <table class="table table-bordered">
-    <thead>
-      <tr style="background-color: maroon;color:white;">
-         <th>Sno</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Gender</th>
-          <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-	
-<%
-// req.setAttribute("bananas", signupDTOs);
-List<SignupDTO>  signupDTOs =(List<SignupDTO>)request.getAttribute("bananas");
-
-if(signupDTOs==null){
-	signupDTOs=new ArrayList<>();
-}
-for(SignupDTO signupDTO :signupDTOs ){
-%>  
-      <tr>
-      <td><%=signupDTO.getSid() %></td>
-        <td><%=signupDTO.getName() %></td>
-       <td><%=signupDTO.getEmail() %></td>
-      <td><%=signupDTO.getGender() %></td>
-        <td>
-          <a href="deleteData?sid=<%=signupDTO.getSid()%>">
-              <button type="button" class="btn btn-danger">DELETE</button>
-          </a>
-          </td>
-      </tr>
-   
-   <%
-   }
-%>   
-      
-      
-      
-      <tr style="background-color: green;">
-      <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-   	
-   </section>
- 
+   	</section>
 </body>
 </html>
