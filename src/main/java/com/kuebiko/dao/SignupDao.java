@@ -1,20 +1,19 @@
-package com.kuebiko.service;
+package com.kuebiko.dao;
 
 import java.util.List;
 import java.util.Optional;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-import com.kuebiko.dto.SignupDTO;
+import com.kuebiko.dao.entity.SignupEntity;
 
-//One bean (Java object) can autowired other bean(Java Object)
-@Service
-public class DatabaseServiceLogic {
+//Creating bean of the class which encapsulate database logic
+@Repository
+public class SignupDao {
+
 	//@Autowired
 	 //DataSource datasource;
 	//JdbcTemplate jdbcTemplate=new JdbcTemplate(dataSource);
@@ -27,11 +26,11 @@ public class DatabaseServiceLogic {
 		jdbcTemplate.update(sql,new Object[] {sid});
 	}
 	
-	public List<SignupDTO>  findAll() {
+	public List<SignupEntity>  findAll() {
 		String sql="select * from asignup_tbl";
 		//JdbcTemplate has all the logic for jdbc programming internally
-		List<SignupDTO>  list=jdbcTemplate.
-				query(sql,new BeanPropertyRowMapper(SignupDTO.class));
+		List<SignupEntity>  list=jdbcTemplate.
+				query(sql,new BeanPropertyRowMapper(SignupEntity.class));
 		return list;
 	}
 	
@@ -43,16 +42,16 @@ public class DatabaseServiceLogic {
 			jdbcTemplate.update(sql,data);
 	}
 	
-	public Optional<SignupDTO> findByUsername(String name) {
+	public Optional<SignupEntity> findByUsername(String name) {
 		String sql = "select *  from asignup_tbl where name = ?";
-		List<SignupDTO> list = jdbcTemplate.query(sql, new Object[] { name },
-				new BeanPropertyRowMapper(SignupDTO.class));
-		SignupDTO dto = null;
+		List<SignupEntity> list = jdbcTemplate.query(sql, new Object[] { name },
+				new BeanPropertyRowMapper(SignupEntity.class));
+		SignupEntity entity = null;
 		if (list.size() > 0) {
-			dto = list.get(0);
+			entity = list.get(0);
 		}
 		// Optional - class which was introduce java8 -2014
-		return Optional.ofNullable(dto);
+		return Optional.ofNullable(entity);
 	}
-	
+
 }

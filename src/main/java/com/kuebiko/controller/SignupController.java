@@ -1,6 +1,5 @@
 package com.kuebiko.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,18 +11,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kuebiko.dto.SignupDTO;
-import com.kuebiko.service.DatabaseServiceLogic;
+import com.kuebiko.service.SignupService;
 
 @Controller
 public class SignupController {
 	
 	@Autowired
-	private DatabaseServiceLogic  databaseServiceLogic;
+	private SignupService signupService;
 	
   @GetMapping("/deleteData")
 	public String deleteSignup(@RequestParam int sid) {
 		//WRITE LOGIC
-		databaseServiceLogic.deleteBySid(sid);
+	  signupService.deleteBySid(sid);
 		return "redirect:/showData";
 	}
 
@@ -31,7 +30,7 @@ public class SignupController {
 		@GetMapping("/showData")
 		public String showSignups(Model model) {
 			//WRITE LOGIC
-			List<SignupDTO>  signupDTOs=databaseServiceLogic.findAll();
+			List<SignupDTO>  signupDTOs=signupService.findAll();
 			model.addAttribute("bananas", signupDTOs);
 			 return "signups";
 		}
@@ -40,7 +39,7 @@ public class SignupController {
 	public String createSignup(@RequestParam String username, 
 			@RequestParam String gender,@RequestParam String email,Model model) {
 		    //below method will save data inside database
-		    databaseServiceLogic.save(username, email, gender);
+		   signupService.persist(username, email, gender);
 			model.addAttribute("message","Ahaha DOne!!");
 			return "signup";
 	}
@@ -70,7 +69,7 @@ public class SignupController {
 	 */
 	@PostMapping("/auth")
 	public String postLogin(@RequestParam String username, @RequestParam String password,Model pravat) {
-		Optional<SignupDTO> optional=databaseServiceLogic.findByUsername(username);
+		Optional<SignupDTO> optional=signupService.findByName(username);
 		if(optional.isPresent()) {
 			return "redirect:/showData";
 		}else {
