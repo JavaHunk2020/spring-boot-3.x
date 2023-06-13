@@ -1,9 +1,19 @@
 package com.kuebiko.dao.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 //class which is used to map with database 
 //table is called entity
+@Entity
+@Table(name="asignup_tbl")
 public class SignupEntity {
 	
+	@Id //means it is primary key
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int sid;
 	private String name;
 	private String email;

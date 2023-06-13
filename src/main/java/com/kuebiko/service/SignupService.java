@@ -8,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kuebiko.dao.SignupDao;
+import com.kuebiko.dao.SignupRepository;
 import com.kuebiko.dao.entity.SignupEntity;
 import com.kuebiko.dto.SignupDTO;
 
@@ -18,20 +18,24 @@ import com.kuebiko.dto.SignupDTO;
 public class SignupService {
 	
 	@Autowired
-	private SignupDao signupDao;
+	private SignupRepository  signupRepository;
 	
 	public void  deleteBySid(int sid) {
-	  	signupDao.deleteBySid(sid);
+		signupRepository.deleteById(sid);
 	}
 	
 	public void persist(String username ,String email, String gender) {
 		  //  /WEB-INF/login.jsp
 		   //JDBC PROGRAMMING
-		  signupDao.save(username, email, gender);
+		SignupEntity  entity=new SignupEntity();
+		entity.setEmail(email);
+		entity.setGender(gender);
+		entity.setName(username);
+		signupRepository.save(entity);
 	}
 	
 	public List<SignupDTO>  findAll() {
-		 List<SignupEntity> entityList=signupDao.findAll();
+		 List<SignupEntity> entityList=signupRepository.findAll();
 		 List<SignupDTO> dtosList=new ArrayList<SignupDTO>();
 		 for(SignupEntity entity : entityList) {
 			 SignupDTO dto=new SignupDTO();
@@ -44,7 +48,7 @@ public class SignupService {
 	
 	//Optional<SignupEntity> - >> Optional<SignupDTO>
 	public Optional<SignupDTO> findByName(String name) {
-		Optional<SignupEntity> optional=signupDao.findByUsername(name);
+		Optional<SignupEntity> optional=signupRepository.findByName(name);
 		SignupDTO signupDTO = null;
 		if (optional.isPresent()) {
 			BeanUtils.copyProperties(optional.get(), signupDTO);
