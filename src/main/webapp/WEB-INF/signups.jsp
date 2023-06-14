@@ -47,12 +47,17 @@ for(SignupDTO signupDTO :signupDTOs ){
 %>  
       <tr>
       <td><%=signupDTO.getSid() %></td>
-        <td><%=signupDTO.getName() %></td>
+        <td><%=signupDTO.getName() %>
+        </td>
        <td><%=signupDTO.getEmail() %></td>
       <td><%=signupDTO.getGender() %></td>
         <td>
           <a href="deleteData?sid=<%=signupDTO.getSid()%>">
               <button type="button" class="btn btn-danger">DELETE</button>
+          </a>
+          &nbsp;
+          <a href="addPassport?sid=<%=signupDTO.getSid()%>">
+              <button type="button" class="btn btn-primary">Passport</button>
           </a>
           </td>
       </tr>
