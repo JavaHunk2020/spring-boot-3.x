@@ -20,13 +20,15 @@ public class PassportService {
 	private PassportRepository passportRepository;
 	
 	public void save(PassportDTO passportDTO) {
-		PassportEntity entity=new PassportEntity();
-		BeanUtils.copyProperties(passportDTO, entity,new String[] {"sid"});
+		PassportEntity passportEntity=new PassportEntity();
+		BeanUtils.copyProperties(passportDTO, passportEntity,new String[] {"sid"});
 		
 		//THIS IS THERE ALREADY IN DB
 		SignupEntity sentity=signupRepository.findById(passportDTO.getSid()).get();
-		entity.setSignupEntity(sentity);
-		passportRepository.save(entity);
+		passportEntity.setSignupEntity(sentity);
+		//passport entity says I will not go inside database with out singup entity
+		//since I have dependency on signup entity
+		passportRepository.save(passportEntity);
 	}
 
 }

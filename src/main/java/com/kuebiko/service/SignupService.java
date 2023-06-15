@@ -8,7 +8,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kuebiko.dao.PassportRepository;
 import com.kuebiko.dao.SignupRepository;
+import com.kuebiko.dao.entity.PassportEntity;
 import com.kuebiko.dao.entity.SignupEntity;
 import com.kuebiko.dto.SignupDTO;
 
@@ -20,8 +22,17 @@ public class SignupService {
 	@Autowired
 	private SignupRepository  signupRepository;
 	
+	@Autowired
+	private PassportRepository passportRepository;
+	
 	public void  deleteBySid(int sid) {
-		signupRepository.deleteById(sid);
+		//signupRepository.deleteById(sid);
+		 Optional<PassportEntity> optional=passportRepository.findBySignupEntityId(sid);
+		 if(optional.isPresent()) {
+			 passportRepository.delete(optional.get());
+		 }else {
+			 signupRepository.deleteById(sid);
+		 }
 	}
 	
 	public void persist(String username ,String email, String gender) {
@@ -40,6 +51,13 @@ public class SignupService {
 		 for(SignupEntity entity : entityList) {
 			 SignupDTO dto=new SignupDTO();
 			 BeanUtils.copyProperties(entity, dto);
+			 Optional<PassportEntity> optional=passportRepository.findBySignupEntityId(entity.getSid());
+			 if(optional.isPresent()) {
+				 dto.setPassportFlag("yes");
+			 }else {
+				 dto.setPassportFlag("no");
+			 }
+			 
 			 dtosList.add(dto);
 		 }
 		 return dtosList;

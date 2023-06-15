@@ -6,7 +6,16 @@ public class SignupDTO {
 	private String name;
 	private String email;
 	private String gender;
+	private String passportFlag;
 	
+	public String getPassportFlag() {
+		return passportFlag;
+	}
+
+	public void setPassportFlag(String passportFlag) {
+		this.passportFlag = passportFlag;
+	}
+
 	public SignupDTO() {
 		
 	}

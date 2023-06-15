@@ -21,7 +21,18 @@ public class PassportEntity {
 	private String name;
 	private String address;
 	private Date doe;
+	
 	private SignupEntity signupEntity;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fsid",unique = true)
+	public SignupEntity getSignupEntity() {
+		return signupEntity;
+	}
+
+	public void setSignupEntity(SignupEntity signupEntity) {
+		this.signupEntity = signupEntity;
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,15 +44,7 @@ public class PassportEntity {
 		this.id = id;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fsid")
-	public SignupEntity getSignupEntity() {
-		return signupEntity;
-	}
 
-	public void setSignupEntity(SignupEntity signupEntity) {
-		this.signupEntity = signupEntity;
-	}
 
 
 	public String getNumber() {

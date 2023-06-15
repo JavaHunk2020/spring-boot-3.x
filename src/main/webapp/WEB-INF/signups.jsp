@@ -22,7 +22,7 @@
    	 
    	 
    	 <hr/>
-   	  <h1>Sorry!! Sorry data does not exist!</h1>
+   	  <h1>Signup Data with Passport!</h1>
    	  <hr/>
    	 <table class="table table-bordered">
     <thead>
@@ -56,17 +56,23 @@ for(SignupDTO signupDTO :signupDTOs ){
               <button type="button" class="btn btn-danger">DELETE</button>
           </a>
           &nbsp;
-          <a href="addPassport?sid=<%=signupDTO.getSid()%>">
+         <% 
+          if(signupDTO.getPassportFlag().equalsIgnoreCase("no")){ %>
+          <a href="addPassport?sid=<%=signupDTO.getSid()%>&name=<%=signupDTO.getName() %>">
               <button type="button" class="btn btn-primary">Passport</button>
           </a>
+          <%}else { %>
+           &nbsp;
+          <a href="addPassport?sid=<%=signupDTO.getSid()%>&name=<%=signupDTO.getName() %>">
+              <button type="button" class="btn btn-success">More!</button>
+          </a>
+        <%  } %>
           </td>
       </tr>
    
    <%
    }
 %>   
-      
-      
       
       <tr style="background-color: green;">
       <td></td>
@@ -77,7 +83,6 @@ for(SignupDTO signupDTO :signupDTOs ){
       </tr>
     </tbody>
   </table>
-   	
    </section>
  
 </body>

@@ -26,7 +26,7 @@
    	  
    	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">
    		 <label>Name : </label>
-   		 <input type="text" name="name" class="form-control">
+   		 <input type="text" style="background-color: #fffff4;" readonly="readonly" name="name" class="form-control" value="${param.name}">
    	 </div>
    	 
    	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">
