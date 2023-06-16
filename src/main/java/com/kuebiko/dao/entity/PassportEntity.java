@@ -21,7 +21,17 @@ public class PassportEntity {
 	private String name;
 	private String address;
 	private Date doe;
+	private String photo;
 	
+	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
 	private SignupEntity signupEntity;
 	
 	@OneToOne(cascade = CascadeType.ALL)

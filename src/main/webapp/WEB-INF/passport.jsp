@@ -34,6 +34,12 @@
    		 <input type="text" name="number" class="form-control">
    	 </div>
    	 
+   	  <div style="width: 50%;margin-bottom: 15px;" class="form-group">
+   		 <label>Photo : </label>
+   		 <input type="text" name="photo" class="form-control">
+   	 </div>
+   	 
+   	 
    	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">
    	 <label>Address : </label>
    	 <input type="text" name="address" class="form-control">

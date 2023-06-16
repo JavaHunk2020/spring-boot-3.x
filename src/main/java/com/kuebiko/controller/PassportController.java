@@ -4,15 +4,19 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kuebiko.dto.PassportDTO;
+import com.kuebiko.dto.SignupDTO;
 import com.kuebiko.service.PassportService;
+import com.kuebiko.service.SignupService;
 
 @Controller
 public class PassportController {
@@ -20,14 +24,29 @@ public class PassportController {
 	@Autowired
 	private PassportService passportService;
 
+	@Autowired
+	private SignupService signupService;
 	
   @GetMapping("/addPassport")
 	public String showPassport(@RequestParam int sid) {
 		return "passport";
 	}
   
+  @GetMapping("/passportDetails")
+ 	public String showPassportDetails(@RequestParam int sid,Model model) {
+	     
+	   PassportDTO passportDTO=passportService.findBySignupId(sid);
+	   model.addAttribute("passportDetails", passportDTO);
+	    
+	   //WRITE LOGIC
+		List<SignupDTO>  signupDTOs=signupService.findAll();
+		model.addAttribute("bananas", signupDTOs);
+		 return "signups";
+ 	}
+  
+  
    @PostMapping("/addPassport")
-	public String postPassport(@RequestParam int sid,@RequestParam String number,@RequestParam String name,@RequestParam String address,String exp) throws ParseException {
+	public String postPassport(@RequestParam int sid,@RequestParam String number,@RequestParam String name,@RequestParam String address,@RequestParam String exp,@RequestParam String photo) throws ParseException {
 	   
 	   PassportDTO dto=new PassportDTO();
 	   dto.setAddress(address);
@@ -38,6 +57,7 @@ public class PassportController {
 	   dto.setExp(expDate);
 	   dto.setDoe(new Date());
 	   dto.setSid(sid);
+	   dto.setPhoto(photo);
 	   
 	   passportService.save(dto);
 		return "redirect:/showData";

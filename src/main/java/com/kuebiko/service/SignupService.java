@@ -54,6 +54,7 @@ public class SignupService {
 			 Optional<PassportEntity> optional=passportRepository.findBySignupEntityId(entity.getSid());
 			 if(optional.isPresent()) {
 				 dto.setPassportFlag("yes");
+				 dto.setPhoto(optional.get().getPhoto());
 			 }else {
 				 dto.setPassportFlag("no");
 			 }

@@ -1,5 +1,7 @@
 package com.kuebiko.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,15 @@ public class PassportService {
 	
 	@Autowired
 	private PassportRepository passportRepository;
+	
+	public PassportDTO findBySignupId(int sid) {
+		PassportDTO passportDTO=new PassportDTO();
+		 Optional<PassportEntity> optional=passportRepository.findBySignupEntityId(sid);
+		 if(optional.isPresent()) {
+			 BeanUtils.copyProperties(optional.get(),passportDTO);
+		 }
+		 return passportDTO;
+	}
 	
 	public void save(PassportDTO passportDTO) {
 		PassportEntity passportEntity=new PassportEntity();

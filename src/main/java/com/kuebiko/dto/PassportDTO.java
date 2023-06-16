@@ -7,10 +7,21 @@ public class PassportDTO {
 	private int id;
 	private String number;
 	private Date exp;
+	private String photo;
 	private String name;
 	private String address;
 	private Date doe;
 	private int sid;
+	
+	
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 
 	public int getId() {
 		return id;
