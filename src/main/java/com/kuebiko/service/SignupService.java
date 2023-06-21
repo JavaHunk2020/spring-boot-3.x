@@ -70,6 +70,7 @@ public class SignupService {
 		Optional<SignupEntity> optional=signupRepository.findByName(name);
 		SignupDTO signupDTO = null;
 		if (optional.isPresent()) {
+			signupDTO=new SignupDTO();
 			BeanUtils.copyProperties(optional.get(), signupDTO);
 		}
 		// Optional - class which was introduce java8 -2014

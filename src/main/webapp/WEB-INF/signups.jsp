@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="com.kuebiko.dto.PassportDTO"%>
 <%@page import="com.kuebiko.dto.SignupDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -18,7 +19,24 @@
    	 <img style="height: 60px;" src="https://s40424.pcdn.co/in/wp-content/uploads/2022/03/What-is-project-management-Meaning-and-Definition-of-Project-Management-1.jpg">
    	  <img style="height: 60px;" src="https://s40424.pcdn.co/in/wp-content/uploads/2022/03/What-is-project-management-Meaning-and-Definition-of-Project-Management-1.jpg">
    	   <img style="height: 60px;" src="https://s40424.pcdn.co/in/wp-content/uploads/2022/03/What-is-project-management-Meaning-and-Definition-of-Project-Management-1.jpg">
+   	   <span style="float: right;font-weight: bold;">
+   	           Hello!! ${sessionScope.userLoggedIn.email}
+   	               <a href="logout">
+   	                <button type="button" class="btn btn-danger">Logout</button>
+   	                </a>
+   	   </span>
    	 <hr/>
+   	 
+   	 <%
+   	    	 List<SignupDTO> signupDTOs = (List<SignupDTO>) request.getAttribute("bananas");
+   	    	 if (signupDTOs == null) {
+   	    	 	signupDTOs = new ArrayList<>();
+   	    	 }
+
+   	    	 PassportDTO passportDTO = (PassportDTO) request.getAttribute("passportDetails");
+
+   	    	 if (passportDTO != null) {
+   	    	 %>
    	   <h3>Selected Passport Details  :-</h3>
    	  	 <table class="table table-bordered">
     <thead>
@@ -40,16 +58,16 @@
     				<b>${passportDetails.doe}</b>
     				</td>
     					  <td><img src="${passportDetails.photo}" style="height: 40px;"></td>
-    					     <td><button type="button" class="btn btn-danger">Delete</button></td>
+    					     <td>
+    					     <button type="button" class="btn btn-danger">Delete</button>
+    					     <button type="button" class="btn btn-primary">EDIT</button>
+    					     </td>
     			</tr>		
     </tbody>
     </table>
-		<%
- 					List<SignupDTO>  signupDTOs =(List<SignupDTO>)request.getAttribute("bananas");
-						 if(signupDTOs==null)  {
- 									signupDTOs=new ArrayList<>();
- 					}
-   	    %>
+    <%} %>
+    
+		
 
 		<hr/>
    	  <h3 style="background-color: #ffffe2;">Signup Data with Passport!</h3>

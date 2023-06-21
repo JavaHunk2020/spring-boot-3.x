@@ -3,6 +3,8 @@ package com.kuebiko.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,11 +30,17 @@ public class SignupController {
 
 		
 		@GetMapping("/showData")
-		public String showSignups(Model model) {
+		public String showSignups(Model model,HttpSession session) {
 			//WRITE LOGIC
-			List<SignupDTO>  signupDTOs=signupService.findAll();
-			model.addAttribute("bananas", signupDTOs);
-			 return "signups";
+			SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
+			if(signupDTO==null) {
+				 model.addAttribute("message","It seems like session is expired!");
+				 return "login";
+			}else {
+				List<SignupDTO>  signupDTOs=signupService.findAll();
+				model.addAttribute("bananas", signupDTOs);
+				 return "signups";
+			}
 		}
 	
 	@PostMapping("/signup")
@@ -51,6 +59,12 @@ public class SignupController {
 		  return "signup";
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session,Model model) {
+		     session.invalidate();
+			 model.addAttribute("message","Ahahah! you have been successfully! logout.");
+		     return "login";
+	}
 
 	@GetMapping("/slogin")
 	public String showLogin() {
@@ -68,9 +82,13 @@ public class SignupController {
 	 * @return
 	 */
 	@PostMapping("/auth")
-	public String postLogin(@RequestParam String username, @RequestParam String password,Model pravat) {
+	public String postLogin(@RequestParam String username, @RequestParam String password,Model pravat,HttpSession session) {
 		Optional<SignupDTO> optional=signupService.findByName(username);
 		if(optional.isPresent()) {
+			//Hey user is there
+			//Create session object and add user details
+			session.setMaxInactiveInterval(10);
+			session.setAttribute("userLoggedIn", optional.get());
 			return "redirect:/showData";
 		}else {
 			pravat.addAttribute("message", "Hmmm I hate you!");
