@@ -61,8 +61,12 @@ public class SignupController {
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session,Model model) {
+		  //Fetching signup dto from session
 		  SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
+		  
+		  
 		   if(signupDTO!=null && signupDTO.getHid()!=0) {
+			   //Fetching history id for that login
 			   signupService.updateLogoutTime(signupDTO.getHid());   
 		   }
 		     session.invalidate();
