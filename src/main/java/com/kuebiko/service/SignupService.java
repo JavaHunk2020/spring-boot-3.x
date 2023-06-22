@@ -1,15 +1,20 @@
 package com.kuebiko.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.kuebiko.dao.LoginHistoryRepository;
 import com.kuebiko.dao.PassportRepository;
 import com.kuebiko.dao.SignupRepository;
+import com.kuebiko.dao.entity.LoginHistoryEntity;
 import com.kuebiko.dao.entity.PassportEntity;
 import com.kuebiko.dao.entity.SignupEntity;
 import com.kuebiko.dto.SignupDTO;
@@ -21,6 +26,9 @@ public class SignupService {
 	
 	@Autowired
 	private SignupRepository  signupRepository;
+	
+	@Autowired
+	private LoginHistoryRepository loginHistoryRepository;
 	
 	@Autowired
 	private PassportRepository passportRepository;
@@ -75,6 +83,24 @@ public class SignupService {
 		}
 		// Optional - class which was introduce java8 -2014
 		return Optional.ofNullable(signupDTO);
+	}
+	
+	
+	@Transactional
+	public void updateLogoutTime(int hid) {
+		//hid - hisotry database id
+		LoginHistoryEntity loginHistoryEntity=loginHistoryRepository.findById(hid).get();
+		loginHistoryEntity.setLogouttime(new Timestamp(new Date().getTime()));
+	}
+	
+	public int saveLoginHistory(int sid) {
+		SignupEntity signupEntity=signupRepository.findById(sid).get();
+		LoginHistoryEntity entity=new LoginHistoryEntity();
+		entity.setLtime(new Timestamp(new Date().getTime()));
+		entity.setName(signupEntity.getName());
+		entity.setSignupEntity(signupEntity);
+		LoginHistoryEntity  result=loginHistoryRepository.save(entity);
+		return result.getId();
 	}
 
 }

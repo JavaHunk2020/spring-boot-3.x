@@ -8,8 +8,18 @@ public class SignupDTO {
 	private String gender;
 	private String passportFlag;
 	private String photo;
+	private int hid;
 	
 	
+	
+	public int getHid() {
+		return hid;
+	}
+
+	public void setHid(int hid) {
+		this.hid = hid;
+	}
+
 	public String getPhoto() {
 		return photo;
 	}

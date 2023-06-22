@@ -1,9 +1,15 @@
 package com.kuebiko.dao.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 //class which is used to map with database 
@@ -19,6 +25,18 @@ public class SignupEntity {
 	private String email;
 	private String gender;
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "signupEntity")
+	private List<LoginHistoryEntity> history=new ArrayList<LoginHistoryEntity>();
+	
+	
+	public List<LoginHistoryEntity> getHistory() {
+		return history;
+	}
+
+	public void setHistory(List<LoginHistoryEntity> history) {
+		this.history = history;
+	}
+
 	public SignupEntity() {
 		
 	}

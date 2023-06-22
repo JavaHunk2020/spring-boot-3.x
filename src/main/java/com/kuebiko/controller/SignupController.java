@@ -61,6 +61,10 @@ public class SignupController {
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session,Model model) {
+		  SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
+		   if(signupDTO!=null && signupDTO.getHid()!=0) {
+			   signupService.updateLogoutTime(signupDTO.getHid());   
+		   }
 		     session.invalidate();
 			 model.addAttribute("message","Ahahah! you have been successfully! logout.");
 		     return "login";
@@ -87,8 +91,11 @@ public class SignupController {
 		if(optional.isPresent()) {
 			//Hey user is there
 			//Create session object and add user details
-			session.setMaxInactiveInterval(10);
-			session.setAttribute("userLoggedIn", optional.get());
+			session.setMaxInactiveInterval(120);
+			SignupDTO signupDTO =optional .get();
+			session.setAttribute("userLoggedIn",signupDTO);
+			int hsid=signupService.saveLoginHistory(signupDTO.getSid());
+			signupDTO.setHid(hsid);
 			return "redirect:/showData";
 		}else {
 			pravat.addAttribute("message", "Hmmm I hate you!");
