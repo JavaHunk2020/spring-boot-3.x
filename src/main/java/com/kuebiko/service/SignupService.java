@@ -17,6 +17,7 @@ import com.kuebiko.dao.SignupRepository;
 import com.kuebiko.dao.entity.LoginHistoryEntity;
 import com.kuebiko.dao.entity.PassportEntity;
 import com.kuebiko.dao.entity.SignupEntity;
+import com.kuebiko.dto.LoginHistoryDTO;
 import com.kuebiko.dto.SignupDTO;
 
 
@@ -91,6 +92,17 @@ public class SignupService {
 		//hid - hisotry database id
 		LoginHistoryEntity loginHistoryEntity=loginHistoryRepository.findById(hid).get();
 		loginHistoryEntity.setLogouttime(new Timestamp(new Date().getTime()));
+	}
+	
+	public List<LoginHistoryDTO> findAllHistory(int sid) {
+		List<LoginHistoryEntity> historyEntities=loginHistoryRepository.findAllBySignupId(sid);
+		 List<LoginHistoryDTO> dtosList=new ArrayList<LoginHistoryDTO>();
+		 for(LoginHistoryEntity entity : historyEntities) {
+			 LoginHistoryDTO dto=new LoginHistoryDTO();
+			 BeanUtils.copyProperties(entity, dto);
+			 dtosList.add(dto);
+		 }
+		 return dtosList;
 	}
 	
 	public int saveLoginHistory(int sid) {

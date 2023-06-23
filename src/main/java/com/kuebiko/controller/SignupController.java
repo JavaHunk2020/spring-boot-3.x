@@ -64,7 +64,6 @@ public class SignupController {
 		  //Fetching signup dto from session
 		  SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
 		  
-		  
 		   if(signupDTO!=null && signupDTO.getHid()!=0) {
 			   //Fetching history id for that login
 			   signupService.updateLogoutTime(signupDTO.getHid());   
@@ -98,8 +97,8 @@ public class SignupController {
 			session.setMaxInactiveInterval(120);
 			SignupDTO signupDTO =optional .get();
 			session.setAttribute("userLoggedIn",signupDTO);
-			int hsid=signupService.saveLoginHistory(signupDTO.getSid());
-			signupDTO.setHid(hsid);
+			int hid=signupService.saveLoginHistory(signupDTO.getSid());
+			signupDTO.setHid(hid);
 			return "redirect:/showData";
 		}else {
 			pravat.addAttribute("message", "Hmmm I hate you!");

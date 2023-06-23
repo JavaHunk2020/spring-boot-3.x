@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kuebiko.dto.LoginHistoryDTO;
 import com.kuebiko.dto.PassportDTO;
 import com.kuebiko.dto.SignupDTO;
 import com.kuebiko.service.PassportService;
@@ -30,6 +33,18 @@ public class PassportController {
   @GetMapping("/addPassport")
 	public String showPassport(@RequestParam int sid) {
 		return "passport";
+	}
+  
+  
+  @GetMapping("/loginHistory")
+	public String showLoginHistory(HttpSession session,Model  model) {
+	   SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
+	   List<LoginHistoryDTO> dtos=signupService.findAllHistory(signupDTO.getSid());
+	   model.addAttribute("loginHistoryList", dtos);
+	   //WRITE LOGIC
+		List<SignupDTO>  signupDTOs=signupService.findAll();
+		model.addAttribute("bananas", signupDTOs);
+		 return "signups";
 	}
   
   @GetMapping("/passportDetails")
