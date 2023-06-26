@@ -11,6 +11,6 @@ public interface PassportRepository extends JpaRepository<PassportEntity, Intege
 	  
 	//HQL - in we write query 
 	 @Query(value = "from PassportEntity as pe where pe.signupEntity.sid =?1")
-	  public Optional<PassportEntity> findBySignupEntityId(int kuchbahaha);
+	  public Optional<PassportEntity> findBySignupEntityId(int sid);
 	
 }

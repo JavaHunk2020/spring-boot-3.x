@@ -27,6 +27,7 @@ public class SignupRestController {
 	private SignupService signupService;
 	
 	
+	
 	@GetMapping("/signups")
 	public List<SignupDTO> showSignups() {
 		//WRITE LOGIC
