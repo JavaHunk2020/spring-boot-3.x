@@ -26,7 +26,7 @@
   	  <form action="auth" method="post">
   	      <div style="width: 50%;">
   	            
-  	            <label>Username</label>
+  	            <label>Username/Email</label>
   	            <input type="text" name="username" class="form-control">
   	            <label>Password</label>
   	            <input type="password" name="password" class="form-control">
@@ -34,6 +34,15 @@
   	            <button type="submit" class="btn btn-primary">Login</button>
   	            
   	            <button type="reset" class="btn btn-danger">Reset</button>
+  	            
+  	             <a href="signup">
+  	           		  <button type="button" class="btn btn-warning">Signup</button>
+  	             </a>
+  	             
+  	              
+  	             <a href="signup">
+  	           		  <button type="button" class="btn btn-primary">Reset Password</button>
+  	             </a>
   	  </div>
   	  </form>
   	  

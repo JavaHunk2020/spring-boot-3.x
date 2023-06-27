@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -44,10 +45,14 @@ public class SignupController {
 		}
 	
 	@PostMapping("/signup")
-	public String createSignup(@RequestParam String username, 
-			@RequestParam String gender,@RequestParam String email,Model model) {
+	public String createSignup(@ModelAttribute SignupDTO signupDTO,Model model) {
 		    //below method will save data inside database
-		   signupService.persist(username, email, gender);
+		if(signupService.findByEmail(signupDTO.getEmail()).isPresent()) {
+			 model.addAttribute("message", "Sorry this email "+signupDTO.getEmail()+" already exits...");
+			 model.addAttribute("signupDTO",signupDTO);
+			  return "signup";
+		}
+		   signupService.persist(signupDTO);
 			model.addAttribute("message","Ahaha DOne!!");
 			return "signup";
 	}
@@ -90,7 +95,7 @@ public class SignupController {
 	 */
 	@PostMapping("/auth")
 	public String postLogin(@RequestParam String username, @RequestParam String password,Model pravat,HttpSession session) {
-		Optional<SignupDTO> optional=signupService.findByName(username);
+		Optional<SignupDTO> optional=signupService.findByEmailAndPassword(username,password);
 		if(optional.isPresent()) {
 			//Hey user is there
 			//Create session object and add user details

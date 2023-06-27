@@ -18,17 +18,23 @@
    	 <br/><br/>
    	 
    	 
-   	 <h1 style="color:green;">${message}</h1>
+   	 <h3 style="color:red;">${message}</h3>
    	 <form action="signup" method="post">
    	 
    	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">
-   		 <label>Username : </label>
-   		 <input type="text" name="username" class="form-control">
+   		 <label>Name : </label>
+   		 <input type="text" name="name" class="form-control" value="${signupDTO.name}">
+   	 </div>
+   	 
+   	  <div style="width: 50%;margin-bottom: 15px;" class="form-group">
+   		 <label>Password : </label>
+   		 <input type="password" name="password" class="form-control">
    	 </div>
    	 
    	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">
    	 <label>Email : </label>
-   	 <input type="email" name="email" class="form-control">
+   	 <input type="email" name="email" class="form-control" value="${signupDTO.email}">
+   	 
    	 </div>
    	 
    	 <div style="width: 40%;margin-bottom: 15px;" class="form-group">
@@ -37,6 +43,13 @@
    	    <option>Male</option>
    	    <option>Female</option>
    	 </select>
+   	 </div>
+   	 
+   	 	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">
+   	 <label>Photo : </label>
+      	 <input type="text" name="photo" class="form-control" value="${signupDTO.photo}">
+		  <img style="height: 80px;" src="${signupDTO.photo}">
+   	
    	 </div>
    	 
    	 	 <div style="width: 50%;margin-top: 20px;">

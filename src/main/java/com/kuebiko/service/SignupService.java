@@ -19,6 +19,7 @@ import com.kuebiko.dao.entity.PassportEntity;
 import com.kuebiko.dao.entity.SignupEntity;
 import com.kuebiko.dto.LoginHistoryDTO;
 import com.kuebiko.dto.SignupDTO;
+import com.kuebiko.rest.controller.Role;
 
 
 //This annotation is used to create a bean of service layer
@@ -44,13 +45,14 @@ public class SignupService {
 		 }
 	}
 	
-	public void persist(String username ,String email, String gender) {
+	public void persist(SignupDTO signupDTO) {
 		  //  /WEB-INF/login.jsp
 		   //JDBC PROGRAMMING
+		signupDTO.setRole(Role.CUSTOMER.getValue());
 		SignupEntity  entity=new SignupEntity();
-		entity.setEmail(email);
-		entity.setGender(gender);
-		entity.setName(username);
+		BeanUtils.copyProperties(signupDTO, entity);
+		entity.setDoe(new Timestamp(new Date().getTime()));
+		entity.setDom(new Timestamp(new Date().getTime()));
 		signupRepository.save(entity);
 	}
 	
@@ -73,6 +75,17 @@ public class SignupService {
 		 return dtosList;
 	}
 	
+	public Optional<SignupDTO> findByEmailAndPassword(String email,String password) {
+		Optional<SignupEntity> optional=signupRepository.findByEmailAndPassword(email,password);
+		SignupDTO signupDTO = null;
+		if (optional.isPresent()) {
+			signupDTO=new SignupDTO();
+			BeanUtils.copyProperties(optional.get(), signupDTO);
+		}
+		// Optional - class which was introduce java8 -2014
+		return Optional.ofNullable(signupDTO);
+	}
+	
 	
 	//Optional<SignupEntity> - >> Optional<SignupDTO>
 	public Optional<SignupDTO> findByName(String name) {
@@ -85,6 +98,20 @@ public class SignupService {
 		// Optional - class which was introduce java8 -2014
 		return Optional.ofNullable(signupDTO);
 	}
+	
+	
+	//Optional<SignupEntity> - >> Optional<SignupDTO>
+	public Optional<SignupDTO> findByEmail(String email) {
+		Optional<SignupEntity> optional=signupRepository.findByEmail(email);
+		SignupDTO signupDTO = null;
+		if (optional.isPresent()) {
+			signupDTO=new SignupDTO();
+			BeanUtils.copyProperties(optional.get(), signupDTO);
+		}
+		// Optional - class which was introduce java8 -2014
+		return Optional.ofNullable(signupDTO);
+	}
+	
 	
 	
 	@Transactional

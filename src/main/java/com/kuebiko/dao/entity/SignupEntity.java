@@ -1,5 +1,6 @@
 package com.kuebiko.dao.entity;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,15 @@ public class SignupEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int sid;
 	private String name;
+	private String password;
+	private String photo;
+	private String role;
+	private Timestamp doe;
+	private Timestamp dom;
 	private String email;
 	private String gender;
+	
+	
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "signupEntity")
 	private List<LoginHistoryEntity> history=new ArrayList<LoginHistoryEntity>();
@@ -70,6 +78,46 @@ public class SignupEntity {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public Timestamp getDoe() {
+		return doe;
+	}
+
+	public void setDoe(Timestamp doe) {
+		this.doe = doe;
+	}
+
+	public Timestamp getDom() {
+		return dom;
+	}
+
+	public void setDom(Timestamp dom) {
+		this.dom = dom;
 	}
 	
 	

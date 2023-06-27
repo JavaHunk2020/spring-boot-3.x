@@ -40,7 +40,11 @@ public class SignupRestController {
 	public AppResponse createSignup(@RequestParam String username, 
 			@RequestParam String gender,@RequestParam String email) {
 		    //below method will save data inside database
-		   signupService.persist(username, email, gender);
+			SignupDTO dto=new SignupDTO();
+			dto.setName(username);
+			dto.setGender(gender);
+			dto.setEmail(email);
+		    signupService.persist(dto);
 			AppResponse appResponse=new AppResponse();
 			appResponse.setCode("success");
 			appResponse.setMessage("Signup is done successfully.");

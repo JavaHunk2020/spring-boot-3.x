@@ -108,7 +108,9 @@ for(LoginHistoryDTO loginHistoryDTO :historyDTOs ){
     				</td>
     					  <td><img src="${passportDetails.photo}" style="height: 40px;"></td>
     					     <td>
+    					     
     					     <button type="button" class="btn btn-danger">Delete</button>
+    					     
     					     <button type="button" class="btn btn-primary">EDIT</button>
     					     </td>
     			</tr>		
@@ -146,7 +148,7 @@ for(SignupDTO signupDTO :signupDTOs ){
       <td><img src="<%=signupDTO.getPhoto() %>" style="height: 80px;"></td>
         <td>
           <a href="deleteData?sid=<%=signupDTO.getSid()%>">
-              <button type="button" class="btn btn-danger">DELETE</button>
+              <button type="button" class="btn btn-danger" style="display:${sessionScope.userLoggedIn.role=='Admin' ?'':'none'}">DELETE</button>
           </a>
           &nbsp;
          <% 

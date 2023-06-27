@@ -4,14 +4,30 @@ public class SignupDTO {
 	
 	private int sid;
 	private String name;
+	private String password;
 	private String email;
 	private String gender;
 	private String passportFlag;
 	private String photo;
 	private int hid;
+	private String role;
 	
-	
-	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public int getHid() {
 		return hid;
 	}
