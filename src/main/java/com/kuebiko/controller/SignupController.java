@@ -47,12 +47,13 @@ public class SignupController {
 	@PostMapping("/signup")
 	public String createSignup(@ModelAttribute SignupDTO signupDTO,Model model) {
 		    //below method will save data inside database
-		if(signupService.findByEmail(signupDTO.getEmail()).isPresent()) {
-			 model.addAttribute("message", "Sorry this email "+signupDTO.getEmail()+" already exits...");
-			  return "signup";
-		}
-		   signupService.persist(signupDTO);
-		   model.addAttribute("signupDTO",new SignupDTO());
+		     if(signupService.findByEmail(signupDTO.getEmail()).isPresent()) {
+				    model.addAttribute("message", "Sorry this email "+signupDTO.getEmail()+" already exits...");
+				    return "signup";
+			 }
+	  	   
+		    signupService.persist(signupDTO);
+		    model.addAttribute("signupDTO",new SignupDTO());
 			model.addAttribute("message","Ahaha DOne!!");
 			return "signup";
 	}

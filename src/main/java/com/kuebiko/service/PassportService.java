@@ -21,6 +21,10 @@ public class PassportService {
 	@Autowired
 	private PassportRepository passportRepository;
 	
+	public void deleteById(int pid) {
+		passportRepository.deleteById(pid);
+	}
+	
 	public PassportDTO findBySignupId(int sid) {
 		PassportDTO passportDTO=new PassportDTO();
 		 Optional<PassportEntity> optional=passportRepository.findBySignupEntityId(sid);
