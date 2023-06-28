@@ -59,6 +59,26 @@ public class SignupController {
 	}
 	
 	
+	@GetMapping("changePassword")
+	public String showChangePassword() {
+		  return "changePassword";
+	}
+	
+	@PostMapping("changePassword")
+	public String postChangePassword(String email,String newPassword , String confirmPassword, Model model) {
+		
+		if(!signupService.findByEmail(email).isPresent()) {
+			model.addAttribute("message","Sorry, this email is not valid.");
+			  return "changePassword";
+		}else if(newPassword!=null && !newPassword.equals(confirmPassword)) {
+			model.addAttribute("message","New password and confirm password does not match.");
+			  return "changePassword";
+		}
+		signupService.updatePasswordByEmail(email, newPassword);
+		model.addAttribute("message","Your new password is updated successfully..");
+		  return "login";
+	}
+	
 	@GetMapping({"/signup","/","/cool","/fool"})
 	public String showSignup() {
 		 //  /WEB-INF/login.jsp

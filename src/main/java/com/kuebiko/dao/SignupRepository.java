@@ -3,6 +3,9 @@ package com.kuebiko.dao;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kuebiko.dao.entity.SignupEntity;
 
@@ -12,4 +15,10 @@ public interface SignupRepository extends JpaRepository<SignupEntity, Integer> {
 	public Optional<SignupEntity> findByEmailAndPassword(String email,String password);
 	public Optional<SignupEntity>  findByEmail(String email);
 	public Optional<SignupEntity>  findByNameAndEmail(String username,String email);
+	
+	@Modifying
+	@Transactional
+	@Query(value="update SignupEntity se SET se.password = ?1 WHERE se.email = ?2")
+	public void updatePasswordByEmail(String password, String email); 
+	
 }

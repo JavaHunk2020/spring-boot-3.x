@@ -8,6 +8,9 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -114,11 +117,45 @@ public class SignupService {
 	
 	
 	
+	
+	
+	
 	@Transactional
 	public void updateLogoutTime(int hid) {
 		//hid - hisotry database id
 		LoginHistoryEntity loginHistoryEntity=loginHistoryRepository.findById(hid).get();
 		loginHistoryEntity.setLogouttime(new Timestamp(new Date().getTime()));
+	}
+	
+	public List<SignupDTO> findRecords(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize);
+		Page<SignupEntity> page = signupRepository.findAll(pageable);
+		List<SignupEntity> products = page.getContent();
+		List<SignupDTO> dtosList = new ArrayList<SignupDTO>();
+		for (SignupEntity entity : products) {
+			SignupDTO dto = new SignupDTO();
+			BeanUtils.copyProperties(entity, dto);
+			Optional<PassportEntity> optional = passportRepository.findBySignupEntityId(entity.getSid());
+			if (optional.isPresent()) {
+				dto.setPassportFlag("yes");
+				dto.setPhoto(optional.get().getPhoto());
+			} else {
+				dto.setPassportFlag("no");
+			}
+			dtosList.add(dto);
+		}
+		return dtosList;
+	}
+
+	@Transactional
+	public void updatePassword(String email,String password) {
+		//hid - hisotry database id
+		SignupEntity entity=signupRepository.findByEmail(email).get();
+		entity.setPassword(password);
+	}
+	
+	public void updatePasswordByEmail(String email, String newPassword) {
+		signupRepository.updatePasswordByEmail(newPassword, email);
 	}
 	
 	public List<LoginHistoryDTO> findAllHistory(int sid) {

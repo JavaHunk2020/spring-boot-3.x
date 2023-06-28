@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Bootstrap Example</title>
+<title>Change Password</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -16,33 +16,33 @@
   </header>
   
   <div class="container">
-      <img src="https://www.iconpacks.net/icons/1/free-user-login-icon-305-thumb.png" class="img-thumbnail" style="height: 220px;">
-      <img src="https://www.iconpacks.net/icons/1/free-user-login-icon-305-thumb.png" class="img-thumbnail" style="height: 220px;">
-      <img src="https://www.iconpacks.net/icons/1/free-user-login-icon-305-thumb.png" class="img-thumbnail" style="height: 220px;">
+     <img src="https://cdn-icons-png.flaticon.com/512/6195/6195699.png" class="img-thumbnail" style="height: 220px;">
+      <img src="https://cdn-icons-png.flaticon.com/512/6195/6195699.png" class="img-thumbnail" style="height: 220px;">
+      <img src="https://cdn-icons-png.flaticon.com/512/6195/6195699.png" class="img-thumbnail" style="height: 220px;">
       <hr/>
       <span style="color:red;font-size: 20px;font-weight: bold;">${message}</span>
       <br>
+       <h4>Change Password Page!</h4>
   	  <hr/>
-  	  <form action="auth" method="post">
+  	  <form action="changePassword" method="post">
   	      <div style="width: 50%;">
   	            
-  	            <label>Username/Email</label>
-  	            <input type="text" name="username" class="form-control">
-  	            <label>Password</label>
-  	            <input type="password" name="password" class="form-control">
-  	            <hr/> 
-  	            <button type="submit" class="btn btn-primary">Login</button>
+  	            <label>Email</label>
+  	            <input type="email" name="email" class="form-control" value="${param.email}">
+  	             <br/>
+  	            <label>New Password</label>
+  	            <input type="password" name="newPassword" class="form-control">
+  	             <label>Confirm Password</label>
+  	            <input type="password" name="confirmPassword" class="form-control">
+  	            <br/>
+  	            <button type="submit" class="btn btn-success">Reset Password</button>
   	            
   	            <button type="reset" class="btn btn-danger">Reset</button>
   	            
-  	             <a href="signup">
-  	           		  <button type="button" class="btn btn-warning">Signup</button>
+  	             <a href="slogin">
+  	           		  <button type="button" class="btn btn-warning">Login</button>
   	             </a>
   	             
-  	              
-  	             <a href="changePassword">
-  	           		  <button type="button" class="btn btn-primary">Reset Password</button>
-  	             </a>
   	  </div>
   	  </form>
   	  
