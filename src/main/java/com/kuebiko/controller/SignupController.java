@@ -66,7 +66,6 @@ public class SignupController {
 	
 	@PostMapping("changePassword")
 	public String postChangePassword(String email,String newPassword , String confirmPassword, Model model) {
-		
 		if(!signupService.findByEmail(email).isPresent()) {
 			model.addAttribute("message","Sorry, this email is not valid.");
 			  return "changePassword";

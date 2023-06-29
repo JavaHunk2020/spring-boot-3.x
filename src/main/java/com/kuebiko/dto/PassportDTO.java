@@ -2,18 +2,30 @@ package com.kuebiko.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class PassportDTO {
 
 	private int id;
 	private String number;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private Date exp;
 	private String photo;
 	private String name;
 	private String address;
 	private Date doe;
+	private String email;
 	private int sid;
 	
 	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getPhoto() {
 		return photo;

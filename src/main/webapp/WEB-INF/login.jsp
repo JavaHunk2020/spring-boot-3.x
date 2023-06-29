@@ -10,6 +10,18 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+   <script type="text/javascript">
+         var  pname='nagen';
+          let tt= {
+        		  email:"nagen@gmail.com",
+        		  show:function() {
+        			  console.log("name = "+this.name);  
+        			  console.log("email = "+this.email);
+        		  }
+          }
+          tt.show();
+   
+   </script>
 </head>
 <body> 
   <header style="height: 30px;background-color: #344ecf;">
@@ -20,7 +32,7 @@
       <img src="https://www.iconpacks.net/icons/1/free-user-login-icon-305-thumb.png" class="img-thumbnail" style="height: 220px;">
       <img src="https://www.iconpacks.net/icons/1/free-user-login-icon-305-thumb.png" class="img-thumbnail" style="height: 220px;">
       <hr/>
-      <span style="color:red;font-size: 20px;font-weight: bold;">${message}</span>
+      <span style="color:red;font-size: 20px;font-weight: bold;border: 1px solid red">${message}</span>
       <br>
   	  <hr/>
   	  <form action="auth" method="post">

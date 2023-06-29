@@ -104,6 +104,18 @@ public class SignupService {
 	
 	
 	//Optional<SignupEntity> - >> Optional<SignupDTO>
+		public Optional<SignupDTO> findBySid(int sid) {
+			Optional<SignupEntity> optional=signupRepository.findById(sid);
+			SignupDTO signupDTO = null;
+			if (optional.isPresent()) {
+				signupDTO=new SignupDTO();
+				BeanUtils.copyProperties(optional.get(), signupDTO);
+			}
+			// Optional - class which was introduce java8 -2014
+			return Optional.ofNullable(signupDTO);
+		}
+	
+	//Optional<SignupEntity> - >> Optional<SignupDTO>
 	public Optional<SignupDTO> findByEmail(String email) {
 		Optional<SignupEntity> optional=signupRepository.findByEmail(email);
 		SignupDTO signupDTO = null;

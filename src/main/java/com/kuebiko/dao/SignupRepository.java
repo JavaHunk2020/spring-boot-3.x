@@ -13,6 +13,7 @@ public interface SignupRepository extends JpaRepository<SignupEntity, Integer> {
 	//find - By  -  attribute
 	public Optional<SignupEntity> findByName(String username);
 	public Optional<SignupEntity> findByEmailAndPassword(String email,String password);
+	public Optional<SignupEntity>  findByEmailOrName(String email,String name);
 	public Optional<SignupEntity>  findByEmail(String email);
 	public Optional<SignupEntity>  findByNameAndEmail(String username,String email);
 	

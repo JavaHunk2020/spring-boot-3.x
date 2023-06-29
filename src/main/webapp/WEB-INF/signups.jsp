@@ -131,6 +131,7 @@ for(LoginHistoryDTO loginHistoryDTO :historyDTOs ){
         <th>Email</th>
         <th>Gender</th>
         <th>Photo</th>
+         <td>Credit Card</td>
           <th>Action</th>
       </tr>
     </thead>
@@ -146,6 +147,11 @@ for(SignupDTO signupDTO :signupDTOs ){
        <td><%=signupDTO.getEmail() %></td>
       <td><%=signupDTO.getGender() %></td>
       <td><img src="<%=signupDTO.getPhoto() %>" style="height: 80px;"></td>
+       <td>
+         <a href="applyForCreditCard?sid=<%=signupDTO.getSid()%>">
+      	   <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/credit_cards.png" style="height: 60px;">
+         </a>
+       </td>
         <td>
           <a href="deleteData?sid=<%=signupDTO.getSid()%>">
               <button type="button" class="btn btn-danger" style="display:${sessionScope.userLoggedIn.role=='Admin' ?'':'none'}">DELETE</button>
