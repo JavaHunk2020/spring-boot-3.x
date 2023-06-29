@@ -27,7 +27,9 @@ public class CreditCardController {
 	  
 	  @PostMapping("/applyForCreditCard")
 		public String createCardDetails(@ModelAttribute CreditCardDTO creditCardDTO,Model model) {
-		     
+		  creditCardDTO.setApplicationId("CAS0192392");
+		  creditCardDTO.setStatus("PENDING");
+		  creditCardDTO
 			 return "redirect:/showData";
 		}
 
