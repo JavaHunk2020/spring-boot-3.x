@@ -18,8 +18,8 @@
    	 <br/><br/>
    	 
    	 
-   	 <h1 style="color:green;">${message}</h1>
-   	 <form action="addPassport" method="post">
+   	 <h1 style="color:tamato;">${message}</h1>
+   	 <form action="applyForCreditCard" method="post">
    	 
    	 <input type="hidden" name="sid" value="${param.sid}">
    	 
@@ -59,7 +59,7 @@
    	 
    	 <div style="width: 40%;margin-bottom: 15px;" class="form-group">
    	 <label>Limit: </label>
-   	<select name="limit" class="form-control">
+   	<select name="climit" class="form-control">
    		     <option>1000$</option>
    		     <option>2000$</option>
    		     <option>3000$</option>

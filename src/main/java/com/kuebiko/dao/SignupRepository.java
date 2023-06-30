@@ -1,5 +1,6 @@
 package com.kuebiko.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,8 @@ public interface SignupRepository extends JpaRepository<SignupEntity, Integer> {
 	public Optional<SignupEntity>  findByEmailOrName(String email,String name);
 	public Optional<SignupEntity>  findByEmail(String email);
 	public Optional<SignupEntity>  findByNameAndEmail(String username,String email);
+	
+	public List<SignupEntity>  findByRole(String role);
 	
 	@Modifying
 	@Transactional

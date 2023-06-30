@@ -1,5 +1,6 @@
 package com.kuebiko.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kuebiko.dao.entity.SignupEntity;
 import com.kuebiko.dto.SignupDTO;
 import com.kuebiko.service.SignupService;
 
@@ -32,14 +34,23 @@ public class SignupController {
 		
 		@GetMapping("/showData")
 		public String showSignups(Model model,HttpSession session) {
-			//WRITE LOGIC
+			
+			//Fetching data from session
 			SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
 			if(signupDTO==null) {
 				 model.addAttribute("message","It seems like session is expired!");
 				 return "login";
 			}else {
-				List<SignupDTO>  signupDTOs=signupService.findAll();
-				model.addAttribute("bananas", signupDTOs);
+				String currentRole=signupDTO.getRole();
+				if(currentRole.equals("Admin")) {
+					List<SignupDTO>  signupDTOs=signupService.findAllByRole("Customer");
+					model.addAttribute("bananas", signupDTOs);
+				}else {
+					Optional<SignupDTO> optional=signupService.findByEmail(signupDTO.getEmail());
+					List<SignupDTO> dtos=new ArrayList<SignupDTO>();
+					dtos.add(optional.get());
+					model.addAttribute("bananas", dtos);
+				}
 				 return "signups";
 			}
 		}

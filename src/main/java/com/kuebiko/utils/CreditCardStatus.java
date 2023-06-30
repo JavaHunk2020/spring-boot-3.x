@@ -1,7 +1,7 @@
 package com.kuebiko.utils;
 
 public enum CreditCardStatus {
-	PENDING("Pending"), REVIEW("Review"), APPROVED("Approved"), PROCESSED("Processed"), READY("Ready");
+	PENDING("Pending"), REVIEW("Review"), APPROVED("Approved"), PROCESSED("Processed"), READY("Dispatched");
 
 	private String value;
 

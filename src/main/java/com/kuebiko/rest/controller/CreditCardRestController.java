@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kuebiko.controller.dto.CreditCardDTO;
 import com.kuebiko.service.SignupService;
+import com.kuebiko.utils.CreditCardStatus;
 
 @RestController
 @CrossOrigin("*") // CORS - Cross CrossOrigin Resource Sharing
@@ -24,6 +25,8 @@ public class CreditCardRestController {
 	//{"name":"Nisha","email":"nisha@gmail.com","type":"MASTER","cardName":"SIGNATURE","nameOnCard":"PRATEEK RAJWANSHI"}
 	public AppResponse createCardDetails(@RequestBody CreditCardDTO creditCardDTO, Model model) {
 		System.out.println(creditCardDTO);
+		creditCardDTO.setStatus(CreditCardStatus.PENDING.getValue());
+		creditCardDTO.setApplicationId("ATO09192");
 		AppResponse appResponse=new AppResponse();
 		appResponse.setCode("12");
 		appResponse.setMessage("Credit card application submitted successfully.");

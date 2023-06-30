@@ -8,7 +8,7 @@ public class CreditCardDTO {
 	private String type;
 	private String cardName;
 	private String nameOnCard;
-	private String limit;
+	private String climit;
 	private String status;
 	private String applicationId;
 
@@ -60,12 +60,12 @@ public class CreditCardDTO {
 		this.nameOnCard = nameOnCard;
 	}
 
-	public String getLimit() {
-		return limit;
+	public String getClimit() {
+		return climit;
 	}
 
-	public void setLimit(String limit) {
-		this.limit = limit;
+	public void setClimit(String climit) {
+		this.climit = climit;
 	}
 
 	public String getStatus() {
@@ -87,7 +87,7 @@ public class CreditCardDTO {
 	@Override
 	public String toString() {
 		return "CreditCardDTO [sid=" + sid + ", cid=" + cid + ", email=" + email + ", type=" + type + ", cardName="
-				+ cardName + ", nameOnCard=" + nameOnCard + ", limit=" + limit + ", status=" + status
+				+ cardName + ", nameOnCard=" + nameOnCard + ",climit=" + climit + ", status=" + status
 				+ ", applicationId=" + applicationId + "]";
 	}
 

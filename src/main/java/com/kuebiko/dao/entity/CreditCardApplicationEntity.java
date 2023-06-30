@@ -18,7 +18,7 @@ public class CreditCardApplicationEntity {
 	private String type;
 	private String cardName;
 	private String nameOnCard;
-	private String limit;
+	private String climit;
 	private String status;
 	private String applicationId;
 	private Timestamp doa;
@@ -78,13 +78,14 @@ public class CreditCardApplicationEntity {
 		this.nameOnCard = nameOnCard;
 	}
 
-	@Column(length = 10)
-	public String getLimit() {
-		return limit;
+	
+	@Column(length = 20)
+	public String getClimit() {
+		return climit;
 	}
 
-	public void setLimit(String limit) {
-		this.limit = limit;
+	public void setClimit(String climit) {
+		this.climit = climit;
 	}
 
 	@Column(length = 20)

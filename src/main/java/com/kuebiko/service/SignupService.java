@@ -59,8 +59,17 @@ public class SignupService {
 		signupRepository.save(entity);
 	}
 	
+	public List<SignupDTO>  findAllByRole(String role) {
+		 List<SignupEntity> entityList=signupRepository.findByRole(role);
+		 return convertIntoDTO(entityList);
+	}
+	
 	public List<SignupDTO>  findAll() {
 		 List<SignupEntity> entityList=signupRepository.findAll();
+		 return convertIntoDTO(entityList);
+	}
+	
+	private List<SignupDTO> convertIntoDTO( List<SignupEntity> entityList){
 		 List<SignupDTO> dtosList=new ArrayList<SignupDTO>();
 		 for(SignupEntity entity : entityList) {
 			 SignupDTO dto=new SignupDTO();
@@ -72,7 +81,6 @@ public class SignupService {
 			 }else {
 				 dto.setPassportFlag("no");
 			 }
-			 
 			 dtosList.add(dto);
 		 }
 		 return dtosList;
@@ -122,6 +130,14 @@ public class SignupService {
 		if (optional.isPresent()) {
 			signupDTO=new SignupDTO();
 			BeanUtils.copyProperties(optional.get(), signupDTO);
+			 Optional<PassportEntity> poptional=passportRepository.findBySignupEntityId(signupDTO.getSid());
+			 if(poptional.isPresent()) {
+				 signupDTO.setPassportFlag("yes");
+				 signupDTO.setPhoto(optional.get().getPhoto());
+			 }else {
+				 signupDTO.setPassportFlag("no");
+			 }
+			
 		}
 		// Optional - class which was introduce java8 -2014
 		return Optional.ofNullable(signupDTO);
