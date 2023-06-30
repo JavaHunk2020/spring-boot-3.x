@@ -14,9 +14,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kuebiko.dao.CreditCardApplicationRepository;
 import com.kuebiko.dao.LoginHistoryRepository;
 import com.kuebiko.dao.PassportRepository;
 import com.kuebiko.dao.SignupRepository;
+import com.kuebiko.dao.entity.CreditCardApplicationEntity;
 import com.kuebiko.dao.entity.LoginHistoryEntity;
 import com.kuebiko.dao.entity.PassportEntity;
 import com.kuebiko.dao.entity.SignupEntity;
@@ -37,6 +39,10 @@ public class SignupService {
 	
 	@Autowired
 	private PassportRepository passportRepository;
+	
+	@Autowired
+	private CreditCardApplicationRepository cardApplicationRepository;
+	
 	
 	public void  deleteBySid(int sid) {
 		//signupRepository.deleteById(sid);
@@ -81,6 +87,14 @@ public class SignupService {
 			 }else {
 				 dto.setPassportFlag("no");
 			 }
+			 Optional<CreditCardApplicationEntity> optionalEmail=cardApplicationRepository.findByEmail(entity.getEmail());
+			 if(optionalEmail.isPresent()) {
+				 dto.setCreditCardFlag("yes");
+				 dto.setCardStatus(optionalEmail.get().getStatus());
+			 }else {
+				 dto.setCreditCardFlag("no");
+			 }
+			 
 			 dtosList.add(dto);
 		 }
 		 return dtosList;

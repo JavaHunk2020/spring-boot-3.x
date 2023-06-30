@@ -3,6 +3,7 @@ package com.kuebiko.rest.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -50,12 +51,20 @@ public class SignupRestController {
 	
 	
 	
-	@GetMapping("/signups")
-	public List<SignupDTO> showSignups() {
-		//WRITE LOGIC
-			List<SignupDTO>  signupDTOs=signupService.findAll();
+		@GetMapping("/signups")
+		public List<SignupDTO> showSignups(@RequestParam String role, @RequestParam String email) {
+			// WRITE LOGIC
+			List<SignupDTO> signupDTOs = new ArrayList<>();
+			if (role.equalsIgnoreCase("admin")) {
+				signupDTOs = signupService.findAllByRole("customer");
+			} else {
+				Optional<SignupDTO> optional = signupService.findByEmail(email);
+				if (optional.isPresent()) {
+					signupDTOs.add(optional.get());
+				}
+			}
 			return signupDTOs;
-	}
+		}
 	
 	
 	@PostMapping("/csignup")
@@ -79,6 +88,9 @@ public class SignupRestController {
 			//Hey user is there
 			//Create session object and add user details
 			appResponse.setCode("success");
+			appResponse.setCid(optional.get().getSid());
+			appResponse.setRole(optional.get().getRole());
+			appResponse.setEmail(optional.get().getEmail());
 			appResponse.setMessage("Username and password are correct");
 		}else {
 			appResponse.setCode("fail");

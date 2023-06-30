@@ -13,5 +13,6 @@ public interface CreditCardApplicationRepository extends JpaRepository<CreditCar
 	 Optional<CreditCardApplicationEntity> findByEmail(String email);
 	 
 	 boolean existsByEmail(String email);
+	 
 
 }

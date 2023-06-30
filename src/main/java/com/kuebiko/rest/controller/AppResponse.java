@@ -2,8 +2,31 @@ package com.kuebiko.rest.controller;
 
 public class AppResponse {
 	
-	String code;
-	String message;
+	private String code;
+	private String message;
+	private String role;
+	private int cid;
+	private String email;
+	
+	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public int getCid() {
+		return cid;
+	}
+	public void setCid(int cid) {
+		this.cid = cid;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getCode() {
 		return code;
 	}

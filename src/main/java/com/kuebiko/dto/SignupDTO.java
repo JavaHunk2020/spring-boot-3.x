@@ -8,10 +8,31 @@ public class SignupDTO {
 	private String email;
 	private String gender;
 	private String passportFlag;
+	private String creditCardFlag;
+	private String cardStatus;
 	private String photo;
 	private int hid;
 	private String role;
 	
+	
+	
+	
+	public String getCardStatus() {
+		return cardStatus;
+	}
+
+	public void setCardStatus(String cardStatus) {
+		this.cardStatus = cardStatus;
+	}
+
+	public String getCreditCardFlag() {
+		return creditCardFlag;
+	}
+
+	public void setCreditCardFlag(String creditCardFlag) {
+		this.creditCardFlag = creditCardFlag;
+	}
+
 	public String getPassword() {
 		return password;
 	}
