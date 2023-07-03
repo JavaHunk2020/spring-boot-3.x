@@ -23,7 +23,6 @@ public class CreditCardController {
 	@Autowired
 	private SignupService signupService;
 	
-	@Autowired
 	private CreditCardApplicationService cardApplicationService;
 	
 	  @GetMapping("/applyForCreditCard")
