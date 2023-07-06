@@ -84,41 +84,7 @@ for(LoginHistoryDTO loginHistoryDTO :historyDTOs ){
 
    	    	 PassportDTO passportDTO = (PassportDTO) request.getAttribute("passportDetails");
 
-   	    	 if (passportDTO != null) {
-   	    	 %>
-   	   <h3>Selected Passport Details  :-</h3>
-   	  	 <table class="table table-bordered">
-    <thead>
-      <tr style="background-color: #35858b;color:white;">
-         <th>Name</th>
-        <th>Number</th>
-        <th>Address</th>
-        <th>Date of expiry</th>
-        <th>Photo</th>
-         <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-    	<td>${passportDetails.name}</td>
-    	<td>${passportDetails.number}</td>
-    			<td>${passportDetails.address}</td>
-    				<td>
-    				<b>${passportDetails.doe}</b>
-    				</td>
-    					  <td><img src="${passportDetails.photo}" style="height: 40px;"></td>
-    					     <td>
-    					     
-    					     <button type="button" class="btn btn-danger">Delete</button>
-    					     
-    					     <button type="button" class="btn btn-primary">EDIT</button>
-    					     </td>
-    			</tr>		
-    </tbody>
-    </table>
-    <%} %>
-		
-
+   %>
 		<hr/>
    	  <h3 style="background-color: #ffffe2;">Signup Data with Passport!</h3>
    	  <hr/>
@@ -185,7 +151,46 @@ for(SignupDTO signupDTO :signupDTOs ){
       </tr>
     </tbody>
   </table>
+   <hr/>
+   
+  <% 
+   	    	 if (passportDTO != null) {
+   	    	 %>
+   
+      <h4 style="background-color:#ffe2cb;">Passport Details</h4>
+  <div class="card" style="width:100%">
+    <img class="card-img-top" src="<%=passportDTO.getPhoto() %>" alt="Card image" style="width: 250px;">
+    <div class="card-body">
+      <h4 class="card-title"><%=passportDTO.getName() %></h4>
+      <p class="card-text">
+      
+    <b>  Comment </b>: Some example text some example text. John Doe is an architect and engineer</p>
+      <table class="table table-bordered">
+    <thead>
+      <tr style="background-color: #7070ff;color:white;">
+         <th>Number</th>
+         <th>Address</th>
+         <th>Email</th>
+           <th>Gender</th>
+         <th>DOE</th>
+      </tr>
+      </thead>
+         <tbody>
+            <tr>
+              <td>${passportDetails.number}</td>
+                  <td>${passportDetails.address}</td>
+                       <td><%=passportDTO.getEmail() %></td>
+                      <td>NA</td>
+                       <td><%=passportDTO.getDoe() %></td>
+            </tr>
+         </tbody>
+      </table>
+    </div>
+  </div>
+  <%} %>
    </section>
+   
+
    
    <br/><br/>
  

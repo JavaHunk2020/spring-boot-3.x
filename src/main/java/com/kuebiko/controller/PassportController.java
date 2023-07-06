@@ -3,8 +3,10 @@ package com.kuebiko.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -48,14 +50,29 @@ public class PassportController {
 	}
   
   @GetMapping("/passportDetails")
- 	public String showPassportDetails(@RequestParam int sid,Model model) {
+ 	public String showPassportDetails(@RequestParam int sid,HttpSession session,Model model) {
 	     
 	   PassportDTO passportDTO=passportService.findBySignupId(sid);
 	   model.addAttribute("passportDetails", passportDTO);
-	    
-	   //WRITE LOGIC
-		List<SignupDTO>  signupDTOs=signupService.findAll();
-		model.addAttribute("bananas", signupDTOs);
+	   
+	   
+	 //Fetching data from session
+		SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
+		if(signupDTO==null) {
+			 model.addAttribute("message","It seems like session is expired!");
+			 return "login";
+		}else {
+			String currentRole=signupDTO.getRole();
+			if(currentRole.equals("Admin")) {
+				List<SignupDTO>  signupDTOs=signupService.findAllByRole("Customer");
+				model.addAttribute("bananas", signupDTOs);
+			}else {
+				Optional<SignupDTO> optional=signupService.findByEmail(signupDTO.getEmail());
+				List<SignupDTO> dtos=new ArrayList<SignupDTO>();
+				dtos.add(optional.get());
+				model.addAttribute("bananas", dtos);
+			}
+		}
 		 return "signups";
  	}
   
