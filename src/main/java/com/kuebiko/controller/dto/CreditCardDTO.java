@@ -11,6 +11,45 @@ public class CreditCardDTO {
 	private String climit;
 	private String status;
 	private String applicationId;
+	private byte[] photo;
+	
+	private String number;
+	private String expDate;
+	private int cvv;
+	
+	
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getExpDate() {
+		return expDate;
+	}
+
+	public void setExpDate(String expDate) {
+		this.expDate = expDate;
+	}
+
+	public int getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(int cvv) {
+		this.cvv = cvv;
+	}
+
+	public byte[] getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
 
 	public int getSid() {
 		return sid;

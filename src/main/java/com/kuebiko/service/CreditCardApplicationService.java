@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -23,7 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kuebiko.controller.dto.CreditCardDTO;
 import com.kuebiko.dao.CreditCardApplicationRepository;
+import com.kuebiko.dao.CreditCardDetailRepository;
 import com.kuebiko.dao.entity.CreditCardApplicationEntity;
+import com.kuebiko.dao.entity.CreditCardDetailEntity;
 import com.kuebiko.dto.PatchDTO;
 import com.kuebiko.utils.CreditCardUtils;
 
@@ -32,6 +35,35 @@ public class CreditCardApplicationService {
 	
 	@Autowired
 	private CreditCardApplicationRepository creditCardApplicationRepository;
+	
+	@Autowired
+	private CreditCardDetailRepository creditCardDetailRepository;
+	
+	@Transactional
+	public void saveCardDetails(CreditCardDTO creditCardDTO) {
+		
+		 Optional<CreditCardDetailEntity> optional=creditCardDetailRepository.findByEmail(creditCardDTO.getEmail());
+		if(optional.isPresent()) {
+			CreditCardDetailEntity creditCardDetailEntity=optional.get();
+			creditCardDetailEntity.setCvv(creditCardDTO.getCvv());
+			creditCardDetailEntity.setNumber(creditCardDTO.getNumber());
+			creditCardDetailEntity.setExpDate(creditCardDTO.getExpDate());
+			creditCardDetailEntity.setPhoto(creditCardDTO.getPhoto());
+			creditCardDetailEntity.setDom(CreditCardUtils.getCurrentTime());
+		}else {
+			CreditCardDetailEntity scardDetailEntity=new CreditCardDetailEntity();
+			CreditCardDTO  db=this.findByEmailId(creditCardDTO.getEmail());
+			BeanUtils.copyProperties(db, scardDetailEntity);	
+			scardDetailEntity.setCvv(creditCardDTO.getCvv());
+			scardDetailEntity.setNumber(creditCardDTO.getNumber());
+			scardDetailEntity.setExpDate(creditCardDTO.getExpDate());
+			scardDetailEntity.setPhoto(creditCardDTO.getPhoto());
+			scardDetailEntity.setDoa(CreditCardUtils.getCurrentTime());
+			scardDetailEntity.setDom(CreditCardUtils.getCurrentTime());
+			creditCardDetailRepository.save(scardDetailEntity);
+		}
+		
+	}
 	
 	public String save(CreditCardDTO creditCardDTO) {
 		CreditCardApplicationEntity entity=new CreditCardApplicationEntity();
@@ -42,13 +74,16 @@ public class CreditCardApplicationService {
 		return "A01292389282";
 	}
 	
-	public byte[] generatedCreditCard(String name,String email) {
+	public CreditCardDTO generatedCreditCard(String name,String email) {
 		return generatedCreditCard(name);
 	}
 	
-	private  byte[] generatedCreditCard(String name) {
+	private CreditCardDTO generatedCreditCard(String name) {
+		CreditCardDTO cardDTO=new CreditCardDTO();
 		String cardNumber=generateCreditCardNumber();
+		cardDTO.setNumber(cardNumber);
 		String exp=generateCreditCardExpireDate();
+		cardDTO.setExpDate(exp);
 		byte[] photo = new byte[]{};
 		
 		Resource resource = new ClassPathResource("images/credit-card-front-template.jpg");
@@ -101,12 +136,13 @@ public class CreditCardApplicationService {
 			ImageIO.write(tag, "jpg", baos);
 			baos.flush();
 			photo= baos.toByteArray();
-
+			cardDTO.setPhoto(photo);
+			cardDTO.setCvv(Integer.parseInt(generateCCVNumber()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return photo;
+		return cardDTO;
 	}
 	
 	private  String generateCreditCardNumber() {
