@@ -39,6 +39,15 @@ public class CreditCardApplicationService {
 	@Autowired
 	private CreditCardDetailRepository creditCardDetailRepository;
 	
+	
+	public byte[] findCreditCardDetails(String email) {
+		 Optional<CreditCardDetailEntity> optional=creditCardDetailRepository.findByEmail(email);
+		 if(optional.isPresent()) {
+			 return optional.get().getPhoto();
+		 }
+		 return new byte[] {};
+	}
+	
 	@Transactional
 	public void saveCardDetails(CreditCardDTO creditCardDTO) {
 		

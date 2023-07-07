@@ -69,8 +69,7 @@ public class CreditCardRestController {
 	@GetMapping("/photo")
 	public void loadImage(@RequestParam String email,HttpServletResponse response) throws IOException {
 		//Fetch photo
-		//==
-		byte[] photo = {};		
+  	   byte[] photo = cardApplicationService.findCreditCardDetails(email);
 	   response.setContentType("image/png");
 	   ServletOutputStream outputStream=response.getOutputStream();
 	   if(photo!=null) {
