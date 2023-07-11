@@ -1,9 +1,5 @@
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
-<%@page import="com.kuebiko.dto.LoginHistoryDTO"%>
-<%@page import="com.kuebiko.dto.PassportDTO"%>
-<%@page import="com.kuebiko.dto.SignupDTO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
 <html>
 <head>
  <meta charset="utf-8">
@@ -37,121 +33,64 @@
    	   
    	   
    	 <hr/>
-
+   	 
+      <c:forEach items="${cardTypeDTOs}" var="item">
 		<div class="card" style="width: 100%;">
 			<div style="width: 50%; float: right; display: inline;">
-				<img class="card-img-top"
-					src="https://cardinsider.com/wp-content/uploads/2023/05/slider.png-1.webp"
-					alt="Card image" style="width: 250px; margin-top: 10px;">
-						<img class="card-img-top"
+				<img class="card-img-top img-thumbnail"
+					src="cimage?ctid=${item.id}"
+					alt="Card image" style="width: 250px; margin-top: 10px;margin-left: 10px;">
+						<img class="card-img-top img-thumbnail"
 					src="https://cardinsider.com/wp-content/uploads/2023/05/slider.png-1.webp"
 					alt="Card image" style="width: 250px; margin-top: 10px;">
 					
 			</div>
 
 			<div style="width: 50%; display: inline;margin-left: 40px;">
-				<b style="font-size: 20px;"> Benefits </b>:
-				<ul>
-					<li>Nagendra Kumar Yadav</li>
-					<li>Nagendra Kumar Yadav</li>
-					<li>Nagendra Kumar Yadav</li>
-					<li>Nagendra Kumar Yadav</li>
+				<b style="font-size: 20px;"> 
+				<img src="data:image/png;base64,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" style="height: 120px">
+				Benefits </b>:
+				<ul style="font-size: 19px;">
+					<li>${item.benefit1}</li>
+					<li>${item.benefit2}</li>
+					<li>${item.benefit3}</li>
+					<li>${item.benefit4}</li>
 				</ul>
 			</div>
 
 			<div class="card-body">
-				<h4 class="card-title">Card Name : Sapphiro Credit Card</h4>
+				<h4 class="card-title">Card Name : ${item.name}</h4>
 				<p class="card-text">
 				<table class="table table-bordered">
 					<thead>
 						<tr style="background-color: #555587; color: white;">
-							<th>Number</th>
-							<th>Address</th>
-							<th>Email</th>
-							<th>Gender</th>
-							<th>DOE</th>
+							<th>Annual Fee</th>
+							<th>Join Fee</th>
+							<th>Card Code</th>
+							<th>Type</th>
+							<th>Joining Bonus</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>${passportDetails.number}</td>
-							<td>${passportDetails.address}</td>
-							<td></td>
-							<td>NA</td>
-							<td></td>
+							<td>${item.annualFee}</td>
+							<td>${item.joinFee}</td>
+							<td>${item.ccode}</td>
+							<td><b>${item.type}</b></td>
+							<td>100$</td>
 						</tr>
 					</tbody>
 				</table>
+				   <span style="float: right;">
+				    <a href="http://localhost:9999/applyForCreditCard?sid=20">
+				   			<button type="button" class="btn btn-success">Apply</button>
+				   </a>
+				   </span>
 			</div>
 		</div>
-
-		<hr/>
-   <div class="card" style="width:100%">
-    <img  class="card-img-top" src="https://cardinsider.com/wp-content/uploads/2023/05/slider.png-1.webp" alt="Card image" style="width: 250px;margin-top: 10px;">
-    <div class="card-body">
-      <h4 class="card-title">Coming Soon</h4>
-      <p class="card-text">
-      
-    <b>  Benefits </b>:
-    <ul>
-        <li>Nagendra</li>
-        <li>Nagendra</li>
-    </ul>
-    
-     Some example text some example text. John Doe is an architect and engineer</p>
-      <table class="table table-bordered">
-    <thead>
-      <tr style="background-color: #7070ff;color:white;">
-         <th>Number</th>
-         <th>Address</th>
-         <th>Email</th>
-           <th>Gender</th>
-         <th>DOE</th>
-      </tr>
-      </thead>
-         <tbody>
-            <tr>
-              <td>${passportDetails.number}</td>
-                  <td>${passportDetails.address}</td>
-                       <td></td>
-                      <td>NA</td>
-                       <td></td>
-            </tr>
-         </tbody>
-      </table>
-    </div>
-  </div>
-   	 <hr/>
-   	  <div class="card" style="width:100%">
-    <img class="card-img-top" src="https://cardinsider.com/wp-content/uploads/2023/05/slider.png-1.webp" alt="Card image" style="width: 250px;">
-    <div class="card-body">
-      <h4 class="card-title">Coming Soon</h4>
-      <p class="card-text">
-      
-    <b>  Comment </b>: Some example text some example text. John Doe is an architect and engineer</p>
-      <table class="table table-bordered">
-    <thead>
-      <tr style="background-color: #555587;color:white;">
-         <th>Number</th>
-         <th>Address</th>
-         <th>Email</th>
-           <th>Gender</th>
-         <th>DOE</th>
-      </tr>
-      </thead>
-         <tbody>
-            <tr>
-              <td>${passportDetails.number}</td>
-                  <td>${passportDetails.address}</td>
-                       <td></td>
-                      <td>NA</td>
-                       <td></td>
-            </tr>
-         </tbody>
-      </table>
-    </div>
-  </div>
-   	 
+			<hr/>
+</c:forEach>
+	
    	 
    
 </section>

@@ -89,7 +89,7 @@ public class SignupController {
 		  return "login";
 	}
 	
-	@GetMapping({"/signup","/","/cool","/fool"})
+	@GetMapping({"/signup","/cool","/fool"})
 	public String showSignup() {
 		 //  /WEB-INF/login.jsp
 		  return "signup";
@@ -109,7 +109,7 @@ public class SignupController {
 		     return "login";
 	}
 
-	@GetMapping("/slogin")
+	@GetMapping({"/slogin","/"})
 	public String showLogin() {
 		 //  /WEB-INF/login.jsp
 		  return "login";

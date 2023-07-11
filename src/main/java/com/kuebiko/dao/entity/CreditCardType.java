@@ -29,7 +29,15 @@ public class CreditCardType {
 	@Column(columnDefinition = "longblob")
 	private byte[] photo;
 	
-	
+private String type;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public byte[] getPhoto() {
 		return photo;

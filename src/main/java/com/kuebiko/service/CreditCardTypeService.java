@@ -18,9 +18,8 @@ public class CreditCardTypeService {
 	private CreditCardTypesRepository cardTypesRepository;
 	
 	
-	public List<CreditCardTypeDTO> findAll(){
+	public List<CreditCardTypeDTO> findAll() {
 		  List<CreditCardType> crediCardList=  cardTypesRepository.findAll();
-		  
 		  List<CreditCardTypeDTO> list=new ArrayList<CreditCardTypeDTO>();
 		  for(CreditCardType crt : crediCardList) {
 			  CreditCardTypeDTO cardTypeDTO=new CreditCardTypeDTO();
@@ -32,10 +31,7 @@ public class CreditCardTypeService {
 	
 	public byte[] findById(int cctid){
 		  CreditCardType creditCardType=  cardTypesRepository.findById(cctid).get();
-	      CreditCardTypeDTO cardTypeDTO=new CreditCardTypeDTO();
-		  BeanUtils.copyProperties(creditCardType, cardTypeDTO);
-		  return cardTypeDTO.getPhoto();
+		  return creditCardType.getPhoto();
 	}
-
 
 }

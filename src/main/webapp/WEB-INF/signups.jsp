@@ -120,9 +120,15 @@ for(SignupDTO signupDTO :signupDTOs ){
       <td><%=signupDTO.getGender() %></td>
       <td><img src="<%=signupDTO.getPhoto() %>" style="height: 80px;"></td>
        <td>
+         
+            <% 
+          if(signupDTO.getRole().equalsIgnoreCase("admin")){ %>
          <a href="applyForCreditCard?sid=<%=signupDTO.getSid()%>">
       	   <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/credit_cards.png" style="height: 60px;">
          </a>
+         <%} %>
+         
+         
        </td>
         <td>
           <a href="deleteData?sid=<%=signupDTO.getSid()%>">
