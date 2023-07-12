@@ -1,11 +1,8 @@
 package com.kuebiko.dao;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.kuebiko.dao.entity.CreditCardDetailEntity;
 import com.kuebiko.dao.entity.CreditCardType;
 
 @Repository

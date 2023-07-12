@@ -21,6 +21,11 @@
    	  <img style="height: 60px;" src="https://s40424.pcdn.co/in/wp-content/uploads/2022/03/What-is-project-management-Meaning-and-Definition-of-Project-Management-1.jpg">
    	   <img style="height: 60px;" src="https://s40424.pcdn.co/in/wp-content/uploads/2022/03/What-is-project-management-Meaning-and-Definition-of-Project-Management-1.jpg">
    	   <span style="float: right;font-weight: bold;">
+   	   
+   	    <a href="${pageContext.request.contextPath}/addNewCard"> 
+   	      <button type="button" class="btn btn-success">Add New Credit Card</button>
+   	    </a>
+   	   
    	    <a href="showCards"> 
    	   <button type="button" class="btn btn-primary">Manage Credit Card</button>
    	    </a>

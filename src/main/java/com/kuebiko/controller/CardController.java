@@ -36,11 +36,17 @@ public class CardController {
 	   outputStream.flush();
 	   outputStream.close();
 	}
+	
+	@GetMapping("/addNewCard")
+	public String addCard(Model model) {
+		return  "addNewCard";
+	}
 
 
 	@GetMapping("/showCards")
 	public String showCards(Model model) {
 		List<CreditCardTypeDTO>  cardTypeDTOs= creditCardTypeService.findAll();
+		//model - it is used to carry the data from controller to view
 		model.addAttribute("cardTypeDTOs", cardTypeDTOs);
 		return  "showCards";
 	}
