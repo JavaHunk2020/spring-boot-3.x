@@ -91,6 +91,7 @@ public class SignupRestController {
 			appResponse.setCid(optional.get().getSid());
 			appResponse.setRole(optional.get().getRole());
 			appResponse.setEmail(optional.get().getEmail());
+			appResponse.setName(optional.get().getName());
 			appResponse.setMessage("Username and password are correct");
 		}else {
 			appResponse.setCode("fail");

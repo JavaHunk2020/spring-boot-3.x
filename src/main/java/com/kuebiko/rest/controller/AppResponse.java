@@ -6,9 +6,17 @@ public class AppResponse {
 	private String message;
 	private String role;
 	private int cid;
+	private String name;
 	private String email;
 	
 	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getRole() {
 		return role;
 	}
