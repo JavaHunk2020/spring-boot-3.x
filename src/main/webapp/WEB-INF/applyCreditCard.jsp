@@ -36,16 +36,15 @@
    	 
    	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">
    		 <label>Type : </label>
-   		 <select name="type" class="form-control" disabled="disabled">
-   		     <option>${param.type}</option>
-   		 </select>
+   		 <label><b>${param.type}</b> </label>
+   		  	 <input type="hidden" name="type" value="${param.sid}">
    	 </div>
    	 
    	   <div style="width: 50%;margin-bottom: 15px;" class="form-group">
    		 <label>Card Name : </label>
-   		 <select name="cardName" class="form-control" disabled="disabled">
-   		   <option>${param.name}</option>
-   		 </select>
+   		  <label><b>${param.name}</b> </label>
+   		  	 <input type="hidden" name="cardName" value="${param.name}">
+   		 
    	 </div>
    	 
    	 
