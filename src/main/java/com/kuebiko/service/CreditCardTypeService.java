@@ -1,7 +1,10 @@
 package com.kuebiko.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,19 @@ public class CreditCardTypeService {
 	public byte[] findById(int cctid){
 		  CreditCardType creditCardType=  cardTypesRepository.findById(cctid).get();
 		  return creditCardType.getPhoto();
+	}
+
+	public void save(CreditCardTypeDTO creditCardTypeDTO) {
+		CreditCardType entity = new CreditCardType();
+		BeanUtils.copyProperties(creditCardTypeDTO, entity);
+		entity.setDoe(new Timestamp(new Date().getTime()));
+		entity.setDom(new Timestamp(new Date().getTime()));		
+		// Set unique card type number
+		Random random = new Random();
+		StringBuilder number = new StringBuilder();
+		number.append(String.format("%03d", random.nextInt(1000)));
+		entity.setCcode("cardType-"+number);
+		cardTypesRepository.save(entity);
 	}
 
 }

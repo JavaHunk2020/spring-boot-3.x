@@ -36,18 +36,15 @@
    	 
    	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">
    		 <label>Type : </label>
-   		 <select name="type" class="form-control">
-   		     <option>VISA</option>
-   		     <option>MASTER</option>
-   		     <option>AMEX</option>
+   		 <select name="type" class="form-control" disabled="disabled">
+   		     <option>${param.type}</option>
    		 </select>
    	 </div>
    	 
    	   <div style="width: 50%;margin-bottom: 15px;" class="form-group">
    		 <label>Card Name : </label>
-   		 <select name="cardName" class="form-control">
-   		     <option>TRAVEL CARD</option>
-   		     <option>SIGNATURE</option>
+   		 <select name="cardName" class="form-control" disabled="disabled">
+   		   <option>${param.name}</option>
    		 </select>
    	 </div>
    	 

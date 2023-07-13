@@ -19,7 +19,7 @@
    	 
    	 
    	 <h3 style="color:red;">${message}</h3>
-   	 <form action="${pageContext.request.contextPath}/addNewCard" method="post">
+   	 <form action="${pageContext.request.contextPath}/addNewCard" method="post" enctype="multipart/form-data">
    	 
    	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">
    		 <label>Name : </label>
@@ -62,7 +62,7 @@
    	 
    	    	  <div style="width: 50%;margin-bottom: 15px;" class="form-group">
    		 <label>Joining Fee : </label>
-   		 <input type="text" name="joiningFee" class="form-control">
+   		 <input type="text" name="joinFee" class="form-control">
    	 </div>
    	 
    	 	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">

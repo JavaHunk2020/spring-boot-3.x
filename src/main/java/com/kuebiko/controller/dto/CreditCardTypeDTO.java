@@ -2,6 +2,9 @@ package com.kuebiko.controller.dto;
 
 import java.sql.Timestamp;
 
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 public class CreditCardTypeDTO {
 	
 	private int id;
@@ -12,12 +15,11 @@ public class CreditCardTypeDTO {
 	private String benefit3;
 	private String benefit4;
 	private String joinFee;
+	private String type;
 	private String annualFee;
 	private Timestamp doe;
 	private Timestamp dom;
 	private byte[] photo;
-	private String type;
-	
 	
 
 	public String getType() {
