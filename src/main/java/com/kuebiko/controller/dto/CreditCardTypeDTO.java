@@ -20,7 +20,24 @@ public class CreditCardTypeDTO {
 	private Timestamp doe;
 	private Timestamp dom;
 	private byte[] photo;
-	
+	private String alreadyApplied="no";
+	private String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getAlreadyApplied() {
+		return alreadyApplied;
+	}
+
+	public void setAlreadyApplied(String alreadyApplied) {
+		this.alreadyApplied = alreadyApplied;
+	}
 
 	public String getType() {
 		return type;

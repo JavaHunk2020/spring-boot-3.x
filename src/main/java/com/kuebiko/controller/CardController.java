@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import com.kuebiko.controller.dto.CreditCardTypeDTO;
+import com.kuebiko.dto.SignupDTO;
 import com.kuebiko.service.CreditCardTypeService;
 
 @Controller
@@ -64,8 +66,9 @@ public class CardController {
 	}
 
 	@GetMapping("/showCards")
-	public String showCards(Model model) {
-		List<CreditCardTypeDTO>  cardTypeDTOs= creditCardTypeService.findAll();
+	public String showCards(Model model,HttpSession session) {
+		   SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
+		List<CreditCardTypeDTO>  cardTypeDTOs= creditCardTypeService.findAll(signupDTO.getHid());
 		//model - it is used to carry the data from controller to view
 		model.addAttribute("cardTypeDTOs", cardTypeDTOs);
 		return  "showCards";

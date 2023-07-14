@@ -7,5 +7,5 @@ import com.kuebiko.dao.entity.CreditCardType;
 
 @Repository
 public interface CreditCardTypesRepository extends JpaRepository<CreditCardType, Integer> {
-
+	
 }

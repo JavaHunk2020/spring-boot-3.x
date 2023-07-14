@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kuebiko.controller.dto.CreditCardTypeDTO;
+import com.kuebiko.dao.CreditCardApplicationRepository;
 import com.kuebiko.dao.CreditCardTypesRepository;
+import com.kuebiko.dao.entity.CreditCardApplicationEntity;
 import com.kuebiko.dao.entity.CreditCardType;
 
 @Service
@@ -20,13 +22,24 @@ public class CreditCardTypeService {
 	@Autowired
 	private CreditCardTypesRepository cardTypesRepository;
 	
+	@Autowired
+	private CreditCardApplicationRepository creditCardApplicationRepository;
 	
-	public List<CreditCardTypeDTO> findAll() {
+	public List<CreditCardTypeDTO> findAll(int sid) {
 		  List<CreditCardType> crediCardList=  cardTypesRepository.findAll();
+		  List<CreditCardApplicationEntity> applicationEntities=creditCardApplicationRepository.findBySid(sid);
 		  List<CreditCardTypeDTO> list=new ArrayList<CreditCardTypeDTO>();
 		  for(CreditCardType crt : crediCardList) {
 			  CreditCardTypeDTO cardTypeDTO=new CreditCardTypeDTO();
 			  BeanUtils.copyProperties(crt, cardTypeDTO);
+			  
+			  for(CreditCardApplicationEntity app : applicationEntities) {
+				    if(crt.getName().equalsIgnoreCase(app.getCardName())) {
+				    	  cardTypeDTO.setAlreadyApplied("Yes");
+				    	  cardTypeDTO.setStatus(app.getStatus());
+				    	  break;
+				    }
+			  }
 			  list.add(cardTypeDTO);
 		  }
 		  return list;
