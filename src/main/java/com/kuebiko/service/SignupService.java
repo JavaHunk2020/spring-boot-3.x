@@ -87,15 +87,24 @@ public class SignupService {
 			 }else {
 				 dto.setPassportFlag("no");
 			 }
-			 Optional<CreditCardApplicationEntity> optionalEmail=cardApplicationRepository.findByEmail(entity.getEmail());
-			 if(optionalEmail.isPresent()) {
-				 dto.setCreditCardFlag("yes");
-				 dto.setCardStatus(optionalEmail.get().getStatus());
+			 List<CreditCardApplicationEntity> creditCardApplicationList=cardApplicationRepository.findByEmail(entity.getEmail());
+			 if(creditCardApplicationList.size()>0) {
+				 for(CreditCardApplicationEntity card : creditCardApplicationList) {
+					 dto.setCardStatus(card.getStatus());
+					 dto.setCardName(card.getCardName());
+					 dto.setApplicationId(card.getApplicationId());
+					 dto.setApplyDate(card.getDoa());
+					 dto.setCreditCardFlag("yes");
+					 SignupDTO newdto=new SignupDTO();
+					 BeanUtils.copyProperties(dto, newdto);
+					 dtosList.add(newdto);
+				 }
 			 }else {
 				 dto.setCreditCardFlag("no");
+				 dtosList.add(dto);
 			 }
 			 
-			 dtosList.add(dto);
+			
 		 }
 		 return dtosList;
 	}

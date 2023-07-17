@@ -1,5 +1,7 @@
 package com.kuebiko.dto;
 
+import java.util.Date;
+
 public class SignupDTO {
 	
 	private int sid;
@@ -13,10 +15,34 @@ public class SignupDTO {
 	private String photo;
 	private int hid;
 	private String role;
+	private String applicationId;
+	private String cardName;
+	private Date applyDate;
 	
-	
-	
-	
+	public String getApplicationId() {
+		return applicationId;
+	}
+
+	public void setApplicationId(String applicationId) {
+		this.applicationId = applicationId;
+	}
+
+	public String getCardName() {
+		return cardName;
+	}
+
+	public void setCardName(String cardName) {
+		this.cardName = cardName;
+	}
+
+	public Date getApplyDate() {
+		return applyDate;
+	}
+
+	public void setApplyDate(Date applyDate) {
+		this.applyDate = applyDate;
+	}
+
 	public String getCardStatus() {
 		return cardStatus;
 	}

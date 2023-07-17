@@ -91,9 +91,9 @@ public class CreditCardRestController {
 		return appResponse;
 	}
 	
-	@GetMapping("/details/{email}")
-	public CreditCardDTO findCreditcardDetails(@PathVariable String email, Model model) {
-		CreditCardDTO creditCardDTO = cardApplicationService.findByEmailId(email);
+	@GetMapping("/details/{applicationId}")
+	public CreditCardDTO findCreditcardDetails(@PathVariable String applicationId, Model model) {
+		CreditCardDTO creditCardDTO = cardApplicationService.findByApplicationId(applicationId);
 		return creditCardDTO;
 	}
 

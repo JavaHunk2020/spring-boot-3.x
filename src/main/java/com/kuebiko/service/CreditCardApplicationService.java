@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -61,7 +62,7 @@ public class CreditCardApplicationService {
 			creditCardDetailEntity.setDom(CreditCardUtils.getCurrentTime());
 		}else {
 			CreditCardDetailEntity scardDetailEntity=new CreditCardDetailEntity();
-			CreditCardDTO  db=this.findByEmailId(creditCardDTO.getEmail());
+			CreditCardDTO  db=this.findByApplicationId(creditCardDTO.getApplicationId());
 			BeanUtils.copyProperties(db, scardDetailEntity);	
 			scardDetailEntity.setCvv(creditCardDTO.getCvv());
 			scardDetailEntity.setNumber(creditCardDTO.getNumber());
@@ -182,19 +183,19 @@ public class CreditCardApplicationService {
 	
 	@Transactional
 	public void changeStatus(PatchDTO patchDTO) {
-		CreditCardApplicationEntity entity =creditCardApplicationRepository.findByEmail(patchDTO.getAttribute()).get();
+		CreditCardApplicationEntity entity =creditCardApplicationRepository.findByApplicationId(patchDTO.getAttribute());
 		entity.setStatus(patchDTO.getValue());
-	}
-	
-	public CreditCardDTO findByEmailId(String emailId) {
-		CreditCardApplicationEntity entity =creditCardApplicationRepository.findByEmail(emailId).get();
-		CreditCardDTO creditCardDTO=new CreditCardDTO();
-		BeanUtils.copyProperties(entity, creditCardDTO);
-		return creditCardDTO;
 	}
 	
 	public boolean isEmailExists(String email) {
 		return creditCardApplicationRepository.existsByEmail(email);
+	}
+
+	public CreditCardDTO findByApplicationId(String applicationId) {
+		CreditCardApplicationEntity entity =creditCardApplicationRepository.findByApplicationId(applicationId);
+		CreditCardDTO creditCardDTO=new CreditCardDTO();
+		BeanUtils.copyProperties(entity, creditCardDTO);
+		return creditCardDTO;
 	}
 
 }
