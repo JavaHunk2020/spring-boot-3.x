@@ -11,5 +11,6 @@ import com.kuebiko.dao.entity.CreditCardDetailEntity;
 public interface CreditCardDetailRepository extends JpaRepository<CreditCardDetailEntity, Integer> {
 	
 	 Optional<CreditCardDetailEntity> findByEmail(String email);
+	 Optional<CreditCardDetailEntity> findByApplicationId(String applicationId);
 
 }

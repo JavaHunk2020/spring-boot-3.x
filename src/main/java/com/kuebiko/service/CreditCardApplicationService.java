@@ -41,8 +41,8 @@ public class CreditCardApplicationService {
 	private CreditCardDetailRepository creditCardDetailRepository;
 	
 	
-	public byte[] findCreditCardDetails(String email) {
-		 Optional<CreditCardDetailEntity> optional=creditCardDetailRepository.findByEmail(email);
+	public byte[] findCreditCardDetails(String applicationId) {
+		 Optional<CreditCardDetailEntity> optional=creditCardDetailRepository.findByApplicationId(applicationId);
 		 if(optional.isPresent()) {
 			 return optional.get().getPhoto();
 		 }
@@ -52,7 +52,7 @@ public class CreditCardApplicationService {
 	@Transactional
 	public void saveCardDetails(CreditCardDTO creditCardDTO) {
 		
-		 Optional<CreditCardDetailEntity> optional=creditCardDetailRepository.findByEmail(creditCardDTO.getEmail());
+		 Optional<CreditCardDetailEntity> optional=creditCardDetailRepository.findByApplicationId(creditCardDTO.getApplicationId());
 		if(optional.isPresent()) {
 			CreditCardDetailEntity creditCardDetailEntity=optional.get();
 			creditCardDetailEntity.setCvv(creditCardDTO.getCvv());
@@ -72,7 +72,8 @@ public class CreditCardApplicationService {
 			scardDetailEntity.setDom(CreditCardUtils.getCurrentTime());
 			creditCardDetailRepository.save(scardDetailEntity);
 		}
-		
+		CreditCardApplicationEntity entity =creditCardApplicationRepository.findByApplicationId(creditCardDTO.getApplicationId());
+		entity.setStatus("Card Generated");
 	}
 	
 	public String save(CreditCardDTO creditCardDTO) {

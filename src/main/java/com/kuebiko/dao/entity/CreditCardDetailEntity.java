@@ -15,6 +15,7 @@ public class CreditCardDetailEntity {
 	private int ccd;
 	private int sid;
 	private String email;
+	private String applicationId;
 	private String type;
 	private String cardName;
 	private String nameOnCard;
@@ -26,6 +27,14 @@ public class CreditCardDetailEntity {
 	private Timestamp doa;
 	private Timestamp dom;
 	
+	
+	
+	public String getApplicationId() {
+		return applicationId;
+	}
+	public void setApplicationId(String applicationId) {
+		this.applicationId = applicationId;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getCcd() {

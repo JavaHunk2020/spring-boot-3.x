@@ -50,9 +50,10 @@ public class CreditCardRestController {
 	
 	
 	@GetMapping("/generate")
-	public void findCustomerCreditCard(@RequestParam String name,@RequestParam String email,HttpServletResponse response) throws IOException {
+	public void findCustomerCreditCard(@RequestParam String name,@RequestParam String email,String applicationId,HttpServletResponse response) throws IOException {
 		CreditCardDTO card=cardApplicationService.generatedCreditCard(name,email);
 		card.setEmail(email);
+		card.setApplicationId(applicationId);
 	   cardApplicationService.saveCardDetails(card);
 	   response.setContentType("image/png");
 	   ServletOutputStream outputStream=response.getOutputStream();
@@ -67,9 +68,9 @@ public class CreditCardRestController {
 	
 	
 	@GetMapping("/photo")
-	public void loadImage(@RequestParam String email,HttpServletResponse response) throws IOException {
+	public void loadImage(@RequestParam String applicationId,HttpServletResponse response) throws IOException {
 		//Fetch photo
-  	   byte[] photo = cardApplicationService.findCreditCardDetails(email);
+  	   byte[] photo = cardApplicationService.findCreditCardDetails(applicationId);
 	   response.setContentType("image/png");
 	   ServletOutputStream outputStream=response.getOutputStream();
 	   if(photo!=null) {
