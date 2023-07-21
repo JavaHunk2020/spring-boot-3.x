@@ -1,14 +1,16 @@
 package com.kuebiko.rest.controller;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kuebiko.dto.PassportDTO;
 import com.kuebiko.dto.SignupDTO;
+import com.kuebiko.security.jwt.JwtUtils;
 import com.kuebiko.service.PassportService;
 import com.kuebiko.service.SignupService;
 
@@ -80,24 +83,40 @@ public class SignupRestController {
 	}
 	
 	
+	  @Autowired
+	  AuthenticationManager authenticationManager;
+
+
+	  @Autowired
+	  PasswordEncoder encoder;
+
+	  @Autowired
+	  JwtUtils jwtUtils;
+	
+	
+	 /**
+	  * 	@Override
+	@Transactional
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	  * @param signupRequest
+	  * @return
+	  */
 	@PostMapping("/cauth")
 	public AppResponse  postLogin(@RequestBody SignupRequest signupRequest) {
+		//authentication has two things - username and role
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(signupRequest.getUsername(), signupRequest.getPassword()));
+		String jwt = jwtUtils.generateJwtToken(authentication);
+		SignupDTO signupDTO=signupService.findByName(signupRequest.getUsername()).get();
 		AppResponse appResponse=new AppResponse();
-		Optional<SignupDTO> optional=signupService.findByName(signupRequest.getUsername());
-		if(optional.isPresent()) {
-			//Hey user is there
-			//Create session object and add user details
-			appResponse.setCode("success");
-			appResponse.setCid(optional.get().getSid());
-			appResponse.setRole(optional.get().getRole());
-			appResponse.setEmail(optional.get().getEmail());
-			appResponse.setName(optional.get().getName());
-			appResponse.setMessage("Username and password are correct");
-		}else {
-			appResponse.setCode("fail");
-			appResponse.setMessage("Hmmm I hate you!");
-		}
-		  return appResponse;
+		appResponse.setCid(signupDTO.getHid());
+		appResponse.setEmail(signupDTO.getEmail());
+		appResponse.setMessage("token is generated");
+		appResponse.setRole(signupDTO.getRole());
+		appResponse.setAuthorization(jwt);
+		appResponse.setName(signupRequest.getUsername());
+		appResponse.setCid(0);
+		return appResponse;
 	}
 
 }
