@@ -82,6 +82,16 @@ public class CreditCardRestController {
 	   outputStream.close();
 	}
 	
+	@GetMapping("/cphoto")
+	public ImageResponse cloadImage(@RequestParam String applicationId) {
+		//Fetch photo
+  	   byte[] photo = cardApplicationService.findCreditCardDetails(applicationId);
+  	   ImageResponse imageResponse=new ImageResponse();
+  	   imageResponse.setPhoto(photo);
+  	   imageResponse.setCode(212);
+  	   return imageResponse;
+	}
+	
 	
 	@PatchMapping("/status")
 	public AppResponse findCreditcardDetails(@RequestBody PatchDTO patchDTO) {

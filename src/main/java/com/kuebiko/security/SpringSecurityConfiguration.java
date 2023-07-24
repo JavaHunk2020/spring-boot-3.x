@@ -60,8 +60,11 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-				.authorizeRequests().antMatchers("/v1/cauth/**").permitAll().antMatchers(HttpMethod.POST, "/v1/csignup")
-				.permitAll().antMatchers(HttpMethod.GET, "/v1/csignup").permitAll().antMatchers("/v1/test/**")
+				.authorizeRequests().antMatchers("/v1/cauth/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/v1/csignup")
+				.permitAll().antMatchers(HttpMethod.GET, "/v1/csignup")
+				.permitAll().antMatchers("/v1/test/**")
+				.permitAll().antMatchers("/v1/creditcards/photo/**")
 				.permitAll().anyRequest().authenticated();
 	}
 }

@@ -104,8 +104,11 @@ public class SignupRestController {
 	@PostMapping("/cauth")
 	public AppResponse  postLogin(@RequestBody SignupRequest signupRequest) {
 		//authentication has two things - username and role
+		
+		//UserDetailsServiceImpl - 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(signupRequest.getUsername(), signupRequest.getPassword()));
+		
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		SignupDTO signupDTO=signupService.findByName(signupRequest.getUsername()).get();
 		AppResponse appResponse=new AppResponse();
