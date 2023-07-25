@@ -1,24 +1,13 @@
 package com.kuebiko.rest.controller;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,6 +69,14 @@ public class CreditCardRestController {
 	   }
 	   outputStream.flush();
 	   outputStream.close();
+	}
+	
+	
+	@GetMapping("/all/{email}")
+	public List<ImageResponse> allCardImage(@PathVariable String email) {
+		//Fetch photo
+	   List<ImageResponse> list = cardApplicationService.findCreditCardsByEmail(email);
+  	   return list;
 	}
 	
 	@GetMapping("/cphoto")

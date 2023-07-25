@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -29,6 +30,7 @@ import com.kuebiko.dao.CreditCardDetailRepository;
 import com.kuebiko.dao.entity.CreditCardApplicationEntity;
 import com.kuebiko.dao.entity.CreditCardDetailEntity;
 import com.kuebiko.dto.PatchDTO;
+import com.kuebiko.rest.controller.ImageResponse;
 import com.kuebiko.utils.CreditCardUtils;
 
 @Service
@@ -40,6 +42,17 @@ public class CreditCardApplicationService {
 	@Autowired
 	private CreditCardDetailRepository creditCardDetailRepository;
 	
+	
+	public List<ImageResponse> findCreditCardsByEmail(String email) {
+		 List<ImageResponse> list =new  ArrayList<>();
+		List<CreditCardDetailEntity> entityList=creditCardDetailRepository.findByEmail(email);
+		for(CreditCardDetailEntity entity : entityList) {
+			ImageResponse imageResponse=new ImageResponse();
+			imageResponse.setPhoto(entity.getPhoto());
+			list.add(imageResponse);
+		}
+		 return list;
+	}
 	
 	public byte[] findCreditCardDetails(String applicationId) {
 		 Optional<CreditCardDetailEntity> optional=creditCardDetailRepository.findByApplicationId(applicationId);
