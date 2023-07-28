@@ -49,6 +49,8 @@ public class CreditCardApplicationService {
 		for(CreditCardDetailEntity entity : entityList) {
 			ImageResponse imageResponse=new ImageResponse();
 			imageResponse.setPhoto(entity.getPhoto());
+			imageResponse.setCode(entity.getCcd());
+			imageResponse.setCardName(entity.getCardName());
 			list.add(imageResponse);
 		}
 		 return list;

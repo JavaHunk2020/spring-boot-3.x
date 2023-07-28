@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.BeanUtils;
@@ -24,6 +25,14 @@ public class CreditCardTypeService {
 	
 	@Autowired
 	private CreditCardApplicationRepository creditCardApplicationRepository;
+	
+	
+	public CreditCardTypeDTO findCardDetailsByName(String name) {
+		  Optional<CreditCardType> creditCardType= cardTypesRepository.findByName(name);
+			  CreditCardTypeDTO cardTypeDTO=new CreditCardTypeDTO();
+			  BeanUtils.copyProperties(creditCardType.get(), cardTypeDTO);
+		  return cardTypeDTO;
+	}
 	
 	public List<CreditCardTypeDTO> findAll(int sid) {
 		  List<CreditCardType> crediCardList=  cardTypesRepository.findAll();

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kuebiko.dto.LoginHistoryDTO;
@@ -24,6 +25,7 @@ import com.kuebiko.service.PassportService;
 import com.kuebiko.service.SignupService;
 
 @Controller
+@RequestMapping("/action")
 public class PassportController {
 	
 	@Autowired
@@ -92,7 +94,7 @@ public class PassportController {
 	   dto.setPhoto(photo);
 	   
 	   passportService.save(dto);
-		return "redirect:/showData";
+		return "redirect:/action/showData";
 	}
   
 } 

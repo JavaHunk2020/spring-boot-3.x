@@ -79,7 +79,7 @@
 					</tbody>
 				</table>
 				   <span style="float: right;">
-				    <a href="${pageContext.request.contextPath}/applyForCreditCard?name=${item.name}&type=${item.type}&sid=${sessionScope.userLoggedIn.sid}">
+				    <a href="${pageContext.request.contextPath}/action/applyForCreditCard?name=${item.name}&type=${item.type}&sid=${sessionScope.userLoggedIn.sid}">
 				   			<button type="button" class="btn btn-success">Apply</button>
 				   </a>
 				   </span>

@@ -5,6 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+   <style>
+                     body {
+                          font-family: 'Calibri', sans-serif;
+                          font-size: 15x;
+                      }
+                      ul {
+                                margin: 0;
+                                padding: 36px;
+                       }
+                     table {
+                                width: 100pct;
+                                background-color: white;
+                                border-collapse: collapse;
+                                border-width: 1px;
+                                border-color: gray;
+                                border-style: solid;
+                                color: black;
+                        }
+                        table td,
+                        table th {
+                                border-width: 1px;
+                                border-color: gray;
+                                border-style: solid;
+                                padding: 12px;
+                        }
+                       table td {
+                                font-size: 12px;
+                        }
+                       table thead 
+                                background-color: white;
+                        }
+                </style>
+  
 </head>
 <body>
    <header style="height: 30px;background-color:yellow; ">
@@ -19,7 +53,7 @@
    	 
    	 
    	 <h3 style="color:red;">${message}</h3>
-   	 <form action="${pageContext.request.contextPath}/addNewCard" method="post" enctype="multipart/form-data">
+   	 <form action="${pageContext.request.contextPath}/action/addNewCard" method="post" enctype="multipart/form-data">
    	 
    	 <div style="width: 50%;margin-bottom: 15px;" class="form-group">
    		 <label>Name : </label>

@@ -26,6 +26,11 @@ public class MasterCreditCardRestController {
 	private CreditCardTypeService creditCardTypeService;
 	
 	
+	@GetMapping("/cdetails/{cardName}")
+	public CreditCardTypeDTO findCreditCardDetail(@PathVariable String cardName) {
+		return creditCardTypeService.findCardDetailsByName(cardName);
+	}
+	
 	@GetMapping("/available/{sid}")
 	public List<CreditCardTypeDTO>findAvailableCards(@PathVariable int sid) {
 		return creditCardTypeService.findAll(sid);

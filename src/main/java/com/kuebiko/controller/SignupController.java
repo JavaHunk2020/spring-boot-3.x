@@ -12,13 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kuebiko.dao.entity.SignupEntity;
 import com.kuebiko.dto.SignupDTO;
 import com.kuebiko.service.SignupService;
 
 @Controller
+@RequestMapping("/action")
 public class SignupController {
 	
 	@Autowired
@@ -28,7 +29,7 @@ public class SignupController {
 	public String deleteSignup(@RequestParam int sid) {
 		//WRITE LOGIC
 	  signupService.deleteBySid(sid);
-		return "redirect:/showData";
+		return "redirect:/action/showData";
 	}
 
 		
@@ -135,7 +136,7 @@ public class SignupController {
 			session.setAttribute("userLoggedIn",signupDTO);
 			int hid=signupService.saveLoginHistory(signupDTO.getSid());
 			signupDTO.setHid(hid);
-			return "redirect:/showData";
+			return "redirect:/action/showData";
 		}else {
 			pravat.addAttribute("message", "Hmmm I hate you!");
 		}
