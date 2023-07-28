@@ -43,6 +43,22 @@ public class SignupService {
 	@Autowired
 	private CreditCardApplicationRepository cardApplicationRepository;
 	
+	public byte[] findUserPhoto(int sid) {
+		SignupEntity signupEntity=signupRepository.findById(sid).get();
+		//WE ARE CHANGING IT
+		return signupEntity.getPphoto();
+	}
+	
+	@Transactional
+	public void updateProfile(SignupDTO signupDTO) {
+		SignupEntity signupEntity=signupRepository.findById(signupDTO.getSid()).get();
+		//WE ARE CHANGING IT
+		signupEntity.setName(signupDTO.getName()); // this is edited name coming from GUI
+		signupEntity.setGender(signupDTO.getGender());// this is edited gender coming from GUI
+		signupEntity.setDom(new Timestamp(new Date().getTime()));
+		signupEntity.setPphoto(signupDTO.getPphoto());// this is edited name coming from GUI
+	}
+	
 	
 	public void  deleteBySid(int sid) {
 		//signupRepository.deleteById(sid);

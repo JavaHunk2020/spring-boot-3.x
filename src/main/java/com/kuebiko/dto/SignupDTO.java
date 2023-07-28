@@ -18,7 +18,17 @@ public class SignupDTO {
 	private String applicationId;
 	private String cardName;
 	private Date applyDate;
+	private byte[] pphoto;
 	
+	
+	public byte[] getPphoto() {
+		return pphoto;
+	}
+
+	public void setPphoto(byte[] pphoto) {
+		this.pphoto = pphoto;
+	}
+
 	public String getApplicationId() {
 		return applicationId;
 	}

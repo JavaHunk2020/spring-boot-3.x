@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -18,6 +19,7 @@ import com.kuebiko.utils.CreditCardStatus;
 import com.kuebiko.utils.CreditCardUtils;
 
 @Controller
+@RequestMapping("/action")
 public class CreditCardController {
 	
 	@Autowired
@@ -48,7 +50,7 @@ public class CreditCardController {
 				appResponse.setMessage("Credit card application submitted successfully. Your application number is = "+appNumber);
 		    }
 		    redirectAttributes.addFlashAttribute("appResponse", appResponse);
-		    return "redirect:/capplicationStatus";
+		    return "redirect:/action/capplicationStatus";
 		}
 	  
 	   @GetMapping("/capplicationStatus")

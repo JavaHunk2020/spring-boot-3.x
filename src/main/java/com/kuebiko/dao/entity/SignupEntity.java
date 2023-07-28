@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,9 +31,18 @@ public class SignupEntity {
 	private Timestamp dom;
 	private String email;
 	private String gender;
+	@Column(columnDefinition = "longblob")
+	private byte pphoto[];
 	
 	
-	
+	public byte[] getPphoto() {
+		return pphoto;
+	}
+
+	public void setPphoto(byte[] pphoto) {
+		this.pphoto = pphoto;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "signupEntity")
 	private List<LoginHistoryEntity> history=new ArrayList<LoginHistoryEntity>();
 	

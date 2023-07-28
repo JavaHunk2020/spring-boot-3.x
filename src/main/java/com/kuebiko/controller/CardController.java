@@ -64,7 +64,7 @@ public class CardController {
 	public String saveCard(@ModelAttribute CreditCardTypeDTO creditCardTypeDTO,Model model) throws IOException {
 		System.out.println("The values from the credit card type form are: "+creditCardTypeDTO);
 		creditCardTypeService.save(creditCardTypeDTO);
-		return "redirect:/showCards";
+		return "redirect:/action/showCards";
 	}
 
 	@GetMapping("/showCards")

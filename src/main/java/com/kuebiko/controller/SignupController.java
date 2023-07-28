@@ -1,19 +1,27 @@
 package com.kuebiko.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import com.kuebiko.dto.SignupDTO;
 import com.kuebiko.service.SignupService;
@@ -31,6 +39,50 @@ public class SignupController {
 	  signupService.deleteBySid(sid);
 		return "redirect:/action/showData";
 	}
+  
+  
+   @GetMapping("/editProfile")
+	public String editProfile(Model model,HttpSession session) {
+		//Fetching data from session
+		SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
+		if(signupDTO==null) {
+			 model.addAttribute("message","It seems like session is expired!");
+			 return "login";
+		}else {
+		
+		}
+		return "editProfile";
+	}
+   
+   @GetMapping("/uimage")
+	public void uloadImage(HttpSession session,HttpServletResponse response) throws IOException {
+		//Fetch photo
+		SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
+		byte[] photo=signupService.findUserPhoto(signupDTO.getSid());
+	   response.setContentType("image/png");
+	   ServletOutputStream outputStream=response.getOutputStream();
+	   if(photo!=null) {
+		   outputStream.write(photo);
+	   }else {
+		   outputStream.write(new byte[] {});
+	   }
+	   outputStream.flush();
+	   outputStream.close();
+	}
+   
+   @InitBinder
+   protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
+       throws ServletException {
+       // Convert multipart object to byte[]
+       binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
+   }
+   
+   @PostMapping("/editProfile")
+	public String editProfile(@ModelAttribute SignupDTO signupDTO,HttpSession session) {
+ 	   signupService.updateProfile(signupDTO);
+		return "redirect:/action/showData";
+	}
+
 
 		
 		@GetMapping("/showData")
