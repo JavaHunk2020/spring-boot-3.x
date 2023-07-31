@@ -1,5 +1,6 @@
 package com.kuebiko.rest.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,10 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kuebiko.dto.PassportDTO;
 import com.kuebiko.dto.SignupDTO;
@@ -80,6 +83,19 @@ public class SignupRestController {
 			dto.setEmail(email);
 		    signupService.persist(dto);
 			return createResponse("success","Signup is done successfully.");
+	}
+	
+	@PutMapping("/profile")
+	public AppResponse updateMobile(@RequestParam MultipartFile file,@RequestParam String name, 
+			@RequestParam String gender,@RequestParam String email) throws IOException {
+		    //below method will save data inside database
+			SignupDTO dto=new SignupDTO();
+			dto.setName( name);
+			dto.setGender(gender);
+			dto.setEmail(email);
+			dto.setPphoto(file.getBytes());
+		    signupService.updateProfileByEmail(dto);
+			return createResponse("success","Signup is updated successfully.");
 	}
 	
 	

@@ -50,6 +50,16 @@ public class SignupService {
 	}
 	
 	@Transactional
+	public void updateProfileByEmail(SignupDTO signupDTO) {
+		SignupEntity signupEntity=signupRepository.findByEmail(signupDTO.getEmail()).get();
+		//WE ARE CHANGING IT
+		signupEntity.setName(signupDTO.getName()); // this is edited name coming from GUI
+		signupEntity.setGender(signupDTO.getGender());// this is edited gender coming from GUI
+		signupEntity.setDom(new Timestamp(new Date().getTime()));
+		signupEntity.setPphoto(signupDTO.getPphoto());// this is edited name coming from GUI
+	}
+	
+	@Transactional
 	public void updateProfile(SignupDTO signupDTO) {
 		SignupEntity signupEntity=signupRepository.findById(signupDTO.getSid()).get();
 		//WE ARE CHANGING IT
