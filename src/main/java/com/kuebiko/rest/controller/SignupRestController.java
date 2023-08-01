@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,6 +56,12 @@ public class SignupRestController {
 			return appResponse;
 	  }
 	
+	  
+	   @GetMapping("/signups/{email}")
+		public SignupDTO signupByEmail(@PathVariable String email) {
+		  	 Optional<SignupDTO> optional = signupService.findByEmail(email);
+			 return optional.get();
+		}
 	
 	
 		@GetMapping("/signups")
