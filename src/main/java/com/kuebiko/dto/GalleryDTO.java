@@ -1,28 +1,20 @@
-package com.kuebiko.dao.entity;
+package com.kuebiko.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "gallery_details_tbl")
-public class GalleryEntity {
-
+public class GalleryDTO {
 	private int id;
 	private String name;
 	private long size;
 	private Date doe;
 	private byte photo[];
 
-	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -49,17 +41,12 @@ public class GalleryEntity {
 		this.doe = doe;
 	}
 
-	@Column(columnDefinition = "longblob")
 	public byte[] getPhoto() {
 		return photo;
 	}
 
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 }

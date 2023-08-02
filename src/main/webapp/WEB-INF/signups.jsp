@@ -21,7 +21,7 @@
    	   <span style="float: right;font-weight: bold;">
    	   
    	   
-   	      <a href="${pageContext.request.contextPath}/action/editProfile"> 
+   	      <a href="${pageContext.request.contextPath}/action/gallery"> 
    	         <button type="button" class="btn btn-warning">Gallery</button>
    	    </a>
    	     &nbsp;&nbsp;&nbsp;&nbsp;
