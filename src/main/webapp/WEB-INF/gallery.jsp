@@ -1,3 +1,4 @@
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <%@page import="com.kuebiko.dto.LoginHistoryDTO"%>
 <%@page import="com.kuebiko.dto.PassportDTO"%>
@@ -65,103 +66,34 @@
    	   <br/><br/>
    	  	 <table class="table table-bordered">
     <thead>
+    
+    <c:forEach items="${mapped}" var="item">
       <tr>
-          <td>
-          <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=1" alt="No image is present">
-                <form name="galleryForm1"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="1">    
-                      <input onchange="uploadFile('galleryForm1');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
-               </form>
-          </td>
-          <td>
-            <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=2" alt="No image is present">
-           <form name="galleryForm2"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="2">    
-                      <input onchange="uploadFile('galleryForm2');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
-               </form>
-          
-          </td>
-          <td>
-            <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=3" alt="No image is present">
-           <form name="galleryForm3"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="3">    
-                      <input onchange="uploadFile('galleryForm3');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
-               </form>
-          </td>
-          <td>
-            <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=4" alt="No image is present">
-           <form name="galleryForm4"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="4">    
-                      <input onchange="uploadFile('galleryForm4');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
-               </form>
-          </td>
-      </tr>
       
-      <tr>
+      <c:forEach items="${item.value}" var="citem">
           <td>
-          <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=5" alt="No image is present">
-                <form name="galleryForm5"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="5">    
-                      <input onchange="uploadFile('galleryForm5');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
+          <img style="height: 180px;margin-bottom: 3px;" src="gimage?iid=${citem.id}" alt="No image is present">
+                Filename : <b>${citem.name }  </b>  &nbsp; &nbsp;  Filesize : <b>${citem.size }  </b>
+                <form name="galleryForm${citem.id}"  action="gallery" method="post" enctype="multipart/form-data">
+                       <input type="hidden"  name="gid" value="${citem.id}">    
+                      <input onchange="uploadFile('galleryForm${citem.id}');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
                </form>
           </td>
+          </c:forEach>
+      </tr>
+          </c:forEach>
+         
+         
+           <tr>
           <td>
-            <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=6" alt="No image is present">
-           <form name="galleryForm6"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="6">    
-                      <input onchange="uploadFile('galleryForm6');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
-               </form>
-          
-          </td>
-          <td>
-            <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=7" alt="No image is present">
-           <form name="galleryForm7"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="7">    
-                      <input onchange="uploadFile('galleryForm7');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
-               </form>
-          </td>
-          <td>
-            <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=8" alt="No image is present">
-           <form name="galleryForm8"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="8">    
-                      <input onchange="uploadFile('galleryForm8');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
+          Add New Photo : 
+          <img style="height: 180px;margin-bottom: 3px;" src="data:image/jpeg;base64,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" alt="No image is present">
+                <form name="newGalleryForm"  action="gallery" method="post" enctype="multipart/form-data">
+                     <input type="hidden"  name="gid" value="0">    
+                      <input onchange="uploadFile('newGalleryForm');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
                </form>
           </td>
       </tr>
-         
-         
-         <tr>
-          <td>
-          <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=1" alt="No image is present">
-                <form name="galleryForm1"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="1">    
-                      <input onchange="uploadFile('galleryForm1');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
-               </form>
-          </td>
-          <td>
-            <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=2" alt="No image is present">
-           <form name="galleryForm2"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="2">    
-                      <input onchange="uploadFile('galleryForm2');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
-               </form>
-          
-          </td>
-          <td>
-            <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=3" alt="No image is present">
-           <form name="galleryForm3"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="3">    
-                      <input onchange="uploadFile('galleryForm3');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
-               </form>
-          </td>
-          <td>
-            <img style="height: 180px;margin-bottom: 3px;" src="http://localhost:9999/action/gimage?iid=4" alt="No image is present">
-           <form name="galleryForm4"  action="gallery" method="post" enctype="multipart/form-data">
-                       <input type="hidden"  name="gid" value="4">    
-                      <input onchange="uploadFile('galleryForm4');" type="file" name="photo" class="form-control mr-2" style="width: 95%"/>
-               </form>
-          </td>
-      </tr>
-         
          
     </thead>
     <tbody>

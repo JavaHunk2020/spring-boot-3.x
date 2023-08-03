@@ -58,7 +58,10 @@ public class SignupController {
 	public void uloadImage(HttpSession session,HttpServletResponse response) throws IOException {
 		//Fetch photo
 		SignupDTO signupDTO=(SignupDTO)session.getAttribute("userLoggedIn");
-		byte[] photo=signupService.findUserPhoto(signupDTO.getSid());
+		byte[] photo= {};
+		if(signupDTO!=null) {
+			 photo=signupService.findUserPhoto(signupDTO.getSid());	
+		}
 	   response.setContentType("image/png");
 	   ServletOutputStream outputStream=response.getOutputStream();
 	   if(photo!=null) {
