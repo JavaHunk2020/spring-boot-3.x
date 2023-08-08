@@ -1,5 +1,9 @@
 package com.kuebiko.rest.controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(value = Include.NON_NULL)
 public class AppResponse {
 	
 	private String code;

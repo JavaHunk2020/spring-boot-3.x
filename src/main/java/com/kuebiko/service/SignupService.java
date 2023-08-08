@@ -80,6 +80,9 @@ public class SignupService {
 		 }
 	}
 	
+	public void  deleteByEmail(String email) {
+	}
+	
 	public void persist(SignupDTO signupDTO) {
 		  //  /WEB-INF/login.jsp
 		   //JDBC PROGRAMMING
