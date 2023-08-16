@@ -64,6 +64,11 @@ public class CreditCardApplicationService {
 		 return new byte[] {};
 	}
 	
+	public CreditCardDetailEntity findCreditCardDetailData(String applicationId) {
+		 Optional<CreditCardDetailEntity> optional=creditCardDetailRepository.findByApplicationId(applicationId);
+		 return optional.get();
+	}
+	
 	@Transactional
 	public void saveCardDetails(CreditCardDTO creditCardDTO) {
 		

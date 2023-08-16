@@ -17,20 +17,19 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import com.kuebiko.controller.dto.CreditCardDTO;
+import com.kuebiko.dao.entity.CreditCardDetailEntity;
 import com.kuebiko.dto.SignupDTO;
 
 @Service
 public class EmailService {
 	
-	
-	@PostConstruct
-	public void init() throws MessagingException, IOException {
-		SignupDTO user =new SignupDTO();
-		 user.setName("Nagendra Kumar");
-		 user.setEmail("technohunk444@gmail.com");
-		 this.sendMail(user);
-		 System.out.println("Yeah email is sent");
-	}
+	/*
+	 * @PostConstruct public void init() throws MessagingException, IOException {
+	 * SignupDTO user =new SignupDTO(); user.setName("Nagendra Kumar");
+	 * user.setEmail("technohunk444@gmail.com"); this.sendMail(user);
+	 * System.out.println("Yeah email is sent"); }
+	 */
 
 
     private final TemplateEngine templateEngine;
@@ -50,6 +49,38 @@ spring.mail.properties.mail.smtp.starttls.enable=true
     public EmailService(TemplateEngine templateEngine, JavaMailSender javaMailSender) {
         this.templateEngine = templateEngine;
         this.javaMailSender = javaMailSender;
+    }
+    
+    
+    public String sendCreditCardMail(SignupDTO user, CreditCardDetailEntity entity) throws MessagingException, IOException {
+        Context context = new Context();
+        context.setVariable("user", user);
+
+        //welcome.html
+        String process = templateEngine.process("emails/welcome", context);
+        
+        javax.mail.internet.MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
+                MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                StandardCharsets.UTF_8.name());
+        
+        helper.setSubject("Credit Card Details for "+user.getName());
+        helper.setText(process, true);
+        helper.setTo(user.getEmail());
+        
+		/*
+		 * InputStreamSource cimageSource =new ByteArrayResource(photo);
+		 * helper.addInline("cardicon", cimageSource, "image/png");
+		 */
+
+        File file=new ClassPathResource("images/logo.png", EmailService.class.getClassLoader()).getFile();
+        byte[] bytes=entity.getPhoto();
+        InputStreamSource imageSource =new ByteArrayResource(bytes);
+        helper.addInline("bankIcon", imageSource, "image/png");
+        
+        javaMailSender.send(mimeMessage);
+        return "Sent";
     }
 
     public String sendMail(SignupDTO user) throws MessagingException, IOException {

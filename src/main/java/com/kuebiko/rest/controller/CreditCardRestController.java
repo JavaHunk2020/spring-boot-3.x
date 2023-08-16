@@ -1,9 +1,9 @@
 package com.kuebiko.rest.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kuebiko.controller.dto.CreditCardDTO;
+import com.kuebiko.dao.entity.CreditCardDetailEntity;
 import com.kuebiko.dto.PatchDTO;
+import com.kuebiko.dto.SignupDTO;
 import com.kuebiko.service.CreditCardApplicationService;
+import com.kuebiko.service.EmailService;
 import com.kuebiko.service.SignupService;
 import com.kuebiko.utils.CreditCardStatus;
 
@@ -36,6 +39,22 @@ public class CreditCardRestController {
 	@Autowired
 	private CreditCardApplicationService cardApplicationService;
 	
+	@Autowired
+	private EmailService emailService;
+
+@PostMapping("/email")
+public AppResponse sendEmailCardDetails(@RequestBody CreditCardDTO creditCardDTO, Model model) throws MessagingException, IOException {
+	
+	SignupDTO signupDTO=signupService.findBySid(creditCardDTO.getSid()).get();
+	CreditCardDetailEntity entity=cardApplicationService.findCreditCardDetailData(creditCardDTO.getApplicationId());
+	//Sending email
+	emailService.sendCreditCardMail(signupDTO, entity);
+	
+	AppResponse appResponse=new AppResponse();
+	appResponse.setCode("12");
+	appResponse.setMessage("Credit card details has been sent successfully.");
+	return appResponse;
+}
 	
 	
 	@GetMapping("/generate")
